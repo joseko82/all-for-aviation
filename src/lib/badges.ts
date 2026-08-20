@@ -1,5 +1,6 @@
 import type { Logbook, Stats } from './logbook';
 import { localDay } from './logbook';
+import { TOTAL_LEARN_CARDS } from './learn';
 
 /**
  * Badges.
@@ -31,7 +32,7 @@ const hasTypePrefix = (stats: Stats, prefix: string) =>
 
 const ratio = (have: number, need: number) => Math.max(0, Math.min(1, have / need));
 
-export const BADGES: BadgeDef[] = [
+const SPOTTING_BADGES: BadgeDef[] = [
   {
     id: 'first_spot',
     symbol: '✦',
@@ -157,6 +158,35 @@ export const BADGES: BadgeDef[] = [
       }),
   },
 ];
+
+/**
+ * Learning badges, kept in their own list so the two systems can grow
+ * independently. They share the same earned/progress contract.
+ */
+const LEARNING_BADGES: BadgeDef[] = [
+  {
+    id: 'quiz_first',
+    symbol: '?',
+    tier: 'bronze',
+    earned: (s) => s.quizCorrect >= 1,
+  },
+  {
+    id: 'quiz_five',
+    symbol: '✎',
+    tier: 'silver',
+    earned: (s) => s.cardsPassed >= 5,
+    progress: (s) => ratio(s.cardsPassed, 5),
+  },
+  {
+    id: 'quiz_all',
+    symbol: '✔',
+    tier: 'gold',
+    earned: (s) => s.cardsPassed >= TOTAL_LEARN_CARDS,
+    progress: (s) => ratio(s.cardsPassed, TOTAL_LEARN_CARDS),
+  },
+];
+
+export const BADGES: BadgeDef[] = [...SPOTTING_BADGES, ...LEARNING_BADGES];
 
 export const BADGE_IDS = BADGES.map((b) => b.id);
 

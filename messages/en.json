@@ -5,7 +5,10 @@
   },
   "nav": {
     "map": "Live Map",
-    "tagline": "Every plane in the sky, right now"
+    "tagline": "Every plane in the sky, right now",
+    "compare": "Size Compare",
+    "learn": "Learn",
+    "sections": "Sections"
   },
   "map": {
     "loading": "Looking for aeroplanes…",
@@ -93,31 +96,174 @@
     "privacyNote": "Saved only in this browser. Nothing is uploaded anywhere.",
     "reset": "Clear my logbook",
     "resetConfirm": "This erases every plane and badge you have collected. There is no undo. Continue?",
-    "locked": "Locked"
+    "locked": "Locked",
+    "statCards": "Cards passed"
   },
   "badges": {
     "newBadge": "New badge!",
-    "first_spot": { "name": "First Sighting", "hint": "Tap your very first aeroplane." },
-    "five_planes": { "name": "Plane Spotter", "hint": "Spot 5 different aeroplanes." },
-    "twentyfive_planes": { "name": "Sky Watcher", "hint": "Spot 25 different aeroplanes." },
-    "hundred_planes": { "name": "Century Club", "hint": "Spot 100 different aeroplanes." },
-    "type_collector": { "name": "Type Collector", "hint": "Spot 10 different aircraft types." },
-    "jumbo": { "name": "Queen of the Skies", "hint": "Spot a Boeing 747." },
-    "superjumbo": { "name": "Superjumbo", "hint": "Spot an Airbus A380 — the biggest airliner ever built." },
-    "dreamliner": { "name": "Dreamliner", "hint": "Spot a Boeing 787." },
-    "triple_seven": { "name": "Triple Seven", "hint": "Spot a Boeing 777." },
-    "five_airlines_day": { "name": "Busy Day", "hint": "Spot 5 different airlines in one day." },
-    "world_tour": { "name": "World Tour", "hint": "Spot airlines from 5 different countries." },
-    "globe_trotter": { "name": "Globe Trotter", "hint": "Spot airlines from 10 different countries." },
-    "streak_3": { "name": "Three in a Row", "hint": "Visit on 3 days in a row." },
-    "streak_7": { "name": "Week of Watching", "hint": "Visit on 7 days in a row." },
-    "high_flyer": { "name": "High Flyer", "hint": "Spot a plane cruising above 40,000 feet." },
-    "speed_demon": { "name": "Tailwind", "hint": "Spot a plane doing more than 550 knots over the ground." },
-    "cargo_hunter": { "name": "Night Freight", "hint": "Spot a cargo airline." },
-    "night_owl": { "name": "Night Owl", "hint": "Spot a plane between 10pm and 5am." }
+    "first_spot": {
+      "name": "First Sighting",
+      "hint": "Tap your very first aeroplane."
+    },
+    "five_planes": {
+      "name": "Plane Spotter",
+      "hint": "Spot 5 different aeroplanes."
+    },
+    "twentyfive_planes": {
+      "name": "Sky Watcher",
+      "hint": "Spot 25 different aeroplanes."
+    },
+    "hundred_planes": {
+      "name": "Century Club",
+      "hint": "Spot 100 different aeroplanes."
+    },
+    "type_collector": {
+      "name": "Type Collector",
+      "hint": "Spot 10 different aircraft types."
+    },
+    "jumbo": {
+      "name": "Queen of the Skies",
+      "hint": "Spot a Boeing 747."
+    },
+    "superjumbo": {
+      "name": "Superjumbo",
+      "hint": "Spot an Airbus A380 — the biggest airliner ever built."
+    },
+    "dreamliner": {
+      "name": "Dreamliner",
+      "hint": "Spot a Boeing 787."
+    },
+    "triple_seven": {
+      "name": "Triple Seven",
+      "hint": "Spot a Boeing 777."
+    },
+    "five_airlines_day": {
+      "name": "Busy Day",
+      "hint": "Spot 5 different airlines in one day."
+    },
+    "world_tour": {
+      "name": "World Tour",
+      "hint": "Spot airlines from 5 different countries."
+    },
+    "globe_trotter": {
+      "name": "Globe Trotter",
+      "hint": "Spot airlines from 10 different countries."
+    },
+    "streak_3": {
+      "name": "Three in a Row",
+      "hint": "Visit on 3 days in a row."
+    },
+    "streak_7": {
+      "name": "Week of Watching",
+      "hint": "Visit on 7 days in a row."
+    },
+    "high_flyer": {
+      "name": "High Flyer",
+      "hint": "Spot a plane cruising above 40,000 feet."
+    },
+    "speed_demon": {
+      "name": "Tailwind",
+      "hint": "Spot a plane doing more than 550 knots over the ground."
+    },
+    "cargo_hunter": {
+      "name": "Night Freight",
+      "hint": "Spot a cargo airline."
+    },
+    "night_owl": {
+      "name": "Night Owl",
+      "hint": "Spot a plane between 10pm and 5am."
+    },
+    "quiz_first": {
+      "name": "Curious",
+      "hint": "Answer your first quiz question correctly."
+    },
+    "quiz_five": {
+      "name": "Studious",
+      "hint": "Pass 5 learning cards."
+    },
+    "quiz_all": {
+      "name": "Top of the Class",
+      "hint": "Pass every learning card."
+    },
+    "andMore": "{count, plural, one {+# more badge} other {+# more badges}}"
   },
   "footer": {
     "notAffiliated": "Not affiliated with any airline or airport. Made for a curious 12-year-old.",
     "dataNote": "Positions come from volunteer ADS-B receivers and can be a few seconds old."
+  },
+  "compare": {
+    "title": "How big is that plane, really?",
+    "lede": "Pick two airliners and see them drawn at exactly the same scale. Every shape below is built from the real published length and wingspan.",
+    "pickA": "Blue plane",
+    "pickB": "Grey plane",
+    "bothToScale": "Both aircraft drawn to the same scale, seen from above.",
+    "svgAlt": "Top view of a {a} drawn over a {b}, both to the same scale.",
+    "yardstickTitle": "Things you already know the size of",
+    "yardstickAlt": "Bars showing everyday objects at the same scale as the aircraft above.",
+    "busFact": "The {plane} is about {buses} school buses long.",
+    "note": "Seat counts are typical two-class layouts, with the maximum all-economy figure in brackets. Wingspan varies slightly with winglet type, and range depends on how much the aircraft is carrying.",
+    "row": {
+      "length": "Length",
+      "wingspan": "Wingspan",
+      "height": "Tail height",
+      "seats": "Seats (max)",
+      "range": "Range",
+      "engines": "Engines",
+      "firstFlight": "First flight"
+    },
+    "yardstick": {
+      "person": "A person",
+      "bus": "A school bus",
+      "tennis": "A tennis court",
+      "whale": "A blue whale",
+      "pitch": "A football pitch"
+    }
+  },
+  "facts": {
+    "AT76": "Its propellers let it use short island runways where a jet simply would not fit.",
+    "E190": "Small enough to fill on a quiet route, big enough to feel like a proper jet.",
+    "A223": "Designed in Canada as the Bombardier C Series, then bought by Airbus in 2018.",
+    "A20N": "\"neo\" means new engine option — the same airframe with engines that burn about 15% less fuel.",
+    "B738": "Part of the best-selling airliner family ever built: over 11,000 Boeing 737s and counting.",
+    "A21N": "The longest single-aisle Airbus, and long-ranged enough to cross oceans.",
+    "B752": "Pilots love it. Big engines on a fairly small wing make it climb like nothing else.",
+    "B763": "The aircraft that made crossing oceans on just two engines feel normal.",
+    "B789": "Its carbon-fibre wings flex several metres upwards in flight. That is on purpose.",
+    "A339": "A rebuilt A330 with A350-style engines and new curved wingtips.",
+    "A35K": "Almost the whole fuselage is carbon fibre, so the cabin can be kept more humid and comfortable.",
+    "B77W": "One of its engines produces more thrust than both engines of a 737 combined.",
+    "B748": "The longest airliner ever built, at 76.3 metres nose to tail.",
+    "A388": "Two full-length passenger decks. No other airliner has ever managed that."
+  },
+  "learn": {
+    "title": "How aeroplanes work",
+    "lede": "Twelve short reads, each with three questions at the end. Get all three right and the card is marked passed.",
+    "passedCount": "{passed} of {total} cards passed",
+    "stateNew": "Not read yet",
+    "stateTried": "Best {best}/{total}",
+    "statePassed": "Passed",
+    "quizTitle": "Check yourself",
+    "backToList": "All cards",
+    "nextCard": "Next",
+    "missing": "That card does not exist"
+  },
+  "quiz": {
+    "progress": "Question {index} of {total}",
+    "score": "{correct} out of {total}",
+    "perfect": "Perfect. Card passed.",
+    "tryAgainHint": "Close. Read it once more and try again — your best score is kept.",
+    "bestKept": "Your best is still {best}.",
+    "again": "Try again",
+    "next": "Next question",
+    "finish": "See my score"
+  },
+  "liftLab": {
+    "alt": "A wing seen from the side with air flowing past it and an arrow showing lift.",
+    "angle": "Angle of the wing",
+    "speed": "Speed through the air",
+    "flying": "Enough lift to fly",
+    "notEnough": "Not enough lift yet — go faster or tilt more",
+    "stalled": "Stalled. The air has stopped following the wing.",
+    "note": "Simplified on purpose. Real wings differ, but the two rules shown here are real: lift grows with the square of speed, and it collapses past about 15 degrees."
   }
 }

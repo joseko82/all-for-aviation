@@ -1,0 +1,460 @@
+{
+  "cards": [
+    {
+      "id": "wing-lift",
+      "topic": "How flying works",
+      "title": "How does a wing lift a 300-tonne plane?",
+      "teaser": "It throws air downwards. Really.",
+      "hero": "A wing works by pushing air down. The air pushes back just as hard — and that push is lift.",
+      "body": [
+        "Every wing is tilted very slightly nose-up as it moves through the air. It also has a curved top. Both of those things make the air leaving the wing travel downwards instead of straight back.",
+        "Isaac Newton worked out the rest three hundred years ago: if the wing pushes air down, the air must push the wing up by exactly the same amount. A Boeing 777 at take-off is pushing roughly 350 tonnes of air downwards every second.",
+        "You will also hear that air moves faster over the curved top, and faster air has lower pressure, so the wing gets sucked upwards. That is true too. It is not a rival explanation — it is the same flow described in different words."
+      ],
+      "bullets": [
+        "Double the speed and you get four times the lift. Lift grows with speed squared, which is why planes need a long run-up.",
+        "Tilt the wing more and you get more lift — but only up to about 15 degrees. Past that the air stops following the curve, lift collapses, and that is a stall.",
+        "Flaps make the wing bigger and more curved for take-off and landing, so it can make enough lift at slow speed."
+      ],
+      "interactive": "lift-lab",
+      "quiz": [
+        {
+          "q": "A wing makes lift mainly by…",
+          "options": ["pushing air downwards", "being lighter than air", "spinning very fast"],
+          "answer": 0,
+          "why": "The air pushed down pushes the wing up by the same amount. That is Newton's third law."
+        },
+        {
+          "q": "If a plane doubles its speed, its lift becomes…",
+          "options": ["twice as big", "four times as big", "the same"],
+          "answer": 1,
+          "why": "Lift grows with the square of speed, so 2× speed gives 2 × 2 = 4× lift."
+        },
+        {
+          "q": "What happens if you tilt the wing too far up?",
+          "options": ["It makes even more lift", "The air stops following it and lift collapses", "Nothing changes"],
+          "answer": 1,
+          "why": "That is called a stall. Pilots practise recovering from it long before they ever fly passengers."
+        }
+      ]
+    },
+    {
+      "id": "747-hump",
+      "topic": "Famous aeroplanes",
+      "title": "Why does the 747 have a hump?",
+      "teaser": "Because Boeing thought it would end up carrying boxes, not people.",
+      "hero": "The hump exists so the whole nose of the aeroplane can swing open.",
+      "body": [
+        "When Boeing designed the 747 in the 1960s, almost everyone expected supersonic airliners like Concorde to take over passenger flying within a decade. Boeing assumed its enormous new jet would spend most of its life as a freighter.",
+        "Freighters load through the nose, so the cockpit had to move out of the way — up on top. That bulge behind the flight deck is the leftover space.",
+        "The supersonic future never arrived. The 747 carried passengers for fifty years instead, and airlines filled the hump with a lounge, a piano bar, and eventually just more seats."
+      ],
+      "bullets": [
+        "Nose-loading freighter 747s are still flying today, and the nose really does hinge upwards.",
+        "The upper deck got longer on the 747-300 and later models, adding around 20 more seats.",
+        "Its nickname is 'Queen of the Skies'. The last passenger 747 was delivered in 2023."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "Why is the cockpit above the main deck on a 747?",
+          "options": ["So pilots get a better view", "So the nose can open for cargo", "To make room for engines"],
+          "answer": 1,
+          "why": "Boeing expected the 747 to become a nose-loading freighter, so the flight deck had to move up and out of the way."
+        },
+        {
+          "q": "What did Boeing think would replace the 747 for passengers?",
+          "options": ["Supersonic airliners", "Helicopters", "Bigger propeller planes"],
+          "answer": 0,
+          "why": "Concorde-style supersonic jets were expected to take over. They never did — only 20 Concordes were ever built."
+        },
+        {
+          "q": "How many engines does a 747 have?",
+          "options": ["Two", "Three", "Four"],
+          "answer": 2,
+          "why": "Four. Spotting four engines under the wings plus a hump means you are almost certainly looking at a 747."
+        }
+      ]
+    },
+    {
+      "id": "great-circle",
+      "topic": "Where planes go",
+      "title": "Why does Seoul to New York fly over the Arctic?",
+      "teaser": "Because the Earth is a ball and your map is flat.",
+      "hero": "On a globe, the shortest way from Seoul to New York goes right past the North Pole.",
+      "body": [
+        "Stretch a piece of string between Seoul and New York on a globe and pull it tight. It will not run east across the Pacific — it will climb north over Siberia and the Arctic Ocean.",
+        "That tight-string path is called a great circle, and it is always the shortest route between two places on a sphere.",
+        "Flat maps have to stretch the top and bottom of the world to fit it on a rectangle, so a great circle comes out looking like a big curve. The plane is not taking a detour. Your map is lying to you."
+      ],
+      "bullets": [
+        "Seoul to New York is about 11,000 km over the Arctic. Going straight east across the Pacific would be far longer.",
+        "This site draws the real great-circle line, so the curve you see on the map is the honest route.",
+        "Winds matter too: the way back is often flown further south to ride the jet stream."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "The shortest route between two points on a globe is called…",
+          "options": ["a great circle", "a straight line", "a meridian"],
+          "answer": 0,
+          "why": "A great circle is any circle that cuts the globe exactly in half. The shortest path always lies on one."
+        },
+        {
+          "q": "Why does that route look curved on a flat map?",
+          "options": ["The plane is avoiding storms", "Flat maps stretch the poles", "Pilots like curves"],
+          "answer": 1,
+          "why": "Flattening a sphere onto a rectangle stretches everything near the poles, which bends straight routes into curves."
+        },
+        {
+          "q": "Roughly how far is Seoul to New York the short way?",
+          "options": ["About 5,000 km", "About 11,000 km", "About 25,000 km"],
+          "answer": 1,
+          "why": "About 11,000 km — roughly 14 hours in the air."
+        }
+      ]
+    },
+    {
+      "id": "cruise-altitude",
+      "topic": "How flying works",
+      "title": "Why do planes cruise at 35,000 feet?",
+      "teaser": "Thin air is easy to push through.",
+      "hero": "At 35,000 feet the air is about a quarter as thick as it is at the beach.",
+      "body": [
+        "Air pushes back against anything moving through it. That push is drag, and it costs fuel. Thin air pushes back much less, so the same aeroplane burns far less fuel high up than it would low down.",
+        "Cruising high has other advantages. Most weather, and most turbulence, happens below. There is more room to glide if something goes wrong. And air traffic control can stack aircraft neatly at different levels.",
+        "Planes cannot simply climb higher and higher, though. Jet engines need air to burn fuel, and wings need air to make lift. Somewhere above 40,000 feet a typical airliner runs out of both."
+      ],
+      "bullets": [
+        "Air pressure at 35,000 feet is about a quarter of sea level, which is why cabins are pressurised.",
+        "The outside air temperature up there is around −55 °C.",
+        "Business jets often cruise higher, above 45,000 feet, to stay out of everyone else's way."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "The main reason for cruising high is…",
+          "options": ["thinner air means less drag", "it is warmer up there", "radios work better"],
+          "answer": 0,
+          "why": "Less drag means less fuel burnt for the same distance."
+        },
+        {
+          "q": "Roughly how cold is it outside at 35,000 feet?",
+          "options": ["About 0 °C", "About −55 °C", "About −120 °C"],
+          "answer": 1,
+          "why": "Around −55 °C. That is colder than any inhabited place on Earth."
+        },
+        {
+          "q": "Why can't airliners just keep climbing?",
+          "options": ["They run out of air for lift and engines", "The sky ends", "It is against the rules"],
+          "answer": 0,
+          "why": "Eventually the air is too thin for the wings to make lift and the engines to burn fuel."
+        }
+      ]
+    },
+    {
+      "id": "winglets",
+      "topic": "Design details",
+      "title": "What are those bent-up wingtips for?",
+      "teaser": "They tidy up a whirlpool of wasted air.",
+      "hero": "Air escaping around the wingtip spins into a tornado that costs the airline money.",
+      "body": [
+        "A wing works by keeping higher pressure underneath and lower pressure on top. At the very tip, the air underneath takes the obvious shortcut: it curls around the end into the low-pressure side.",
+        "That curling air spins off behind the wing as an invisible tornado called a wingtip vortex. All the energy in that spin comes out of the engines, and it does nothing useful. It is called induced drag.",
+        "A winglet gets in the way of the shortcut. It does not eliminate the vortex, but it weakens it, typically saving a few percent of fuel over a long flight."
+      ],
+      "bullets": [
+        "Typical fuel saving is 3–5% on long flights — enormous across an airline's whole fleet.",
+        "Different shapes do the same job: blended winglets, split scimitars, and the smooth upturned 'raked' tips on the 787 and A350.",
+        "Those vortices are also why small aircraft must wait a few minutes behind a big one."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "A wingtip vortex forms because…",
+          "options": ["air curls from high pressure under the wing to low pressure on top", "the engines blow sideways", "the wing is flexible"],
+          "answer": 0,
+          "why": "The pressure difference that makes lift also makes air spill around the tip."
+        },
+        {
+          "q": "Winglets mainly save…",
+          "options": ["weight", "fuel", "paint"],
+          "answer": 1,
+          "why": "Weakening the vortex reduces induced drag, usually worth 3–5% of fuel."
+        },
+        {
+          "q": "Which aircraft uses smooth raked wingtips instead of a bent-up winglet?",
+          "options": ["Boeing 787", "Boeing 737-800", "Airbus A320"],
+          "answer": 0,
+          "why": "The 787 and A350 use long raked tips that curve gently upward instead of a sharp winglet."
+        }
+      ]
+    },
+    {
+      "id": "callsigns",
+      "topic": "Reading the sky",
+      "title": "Why is Korean Air 17 called KAL017?",
+      "teaser": "Every airline has two names — one for you, one for air traffic control.",
+      "hero": "Your ticket says KE017. The radio says KAL017. Both are Korean Air.",
+      "body": [
+        "Airlines carry two official codes. The two-letter IATA code (KE, OZ, JL, BA) is the one printed on tickets and departure boards, because it is short and there are enough combinations for the travel industry.",
+        "The three-letter ICAO code (KAL, AAR, JAL, BAW) is the one used by air traffic control, flight plans, and the radio signals this site listens to. Three letters means far more codes and far less chance of two airlines sounding alike.",
+        "Pilots do not read the letters aloud. Korean Air 17 speaks as 'Korean Air one seven'. Every airline has a spoken name like this — British Airways is 'Speedbird'."
+      ],
+      "bullets": [
+        "Search this site with the three-letter form: KAL017 works, KE017 does not.",
+        "Asiana is AAR, Jeju Air is JJA, Japan Airlines is JAL, Emirates is UAE.",
+        "The number after the code is the flight number, not the aircraft."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "Which code does air traffic control use?",
+          "options": ["The two-letter IATA code", "The three-letter ICAO code", "The tail number"],
+          "answer": 1,
+          "why": "Three-letter ICAO codes are used on the radio, in flight plans, and in ADS-B broadcasts."
+        },
+        {
+          "q": "Asiana Airlines broadcasts as…",
+          "options": ["OZ", "ASA", "AAR"],
+          "answer": 2,
+          "why": "AAR. Careful: ASA is Alaska Airlines, and OZ is Asiana's ticket code."
+        },
+        {
+          "q": "What does the number in KAL017 tell you?",
+          "options": ["The flight number", "Which aircraft it is", "How many passengers"],
+          "answer": 0,
+          "why": "It is the flight number. The same route uses the same number every day, but a different aircraft."
+        }
+      ]
+    },
+    {
+      "id": "adsb",
+      "topic": "Reading the sky",
+      "title": "How does this website know where the planes are?",
+      "teaser": "The planes shout it, and volunteers listen.",
+      "hero": "Every airliner broadcasts its own position about twice a second, and anyone with a small antenna can hear it.",
+      "body": [
+        "The system is called ADS-B. An aircraft works out where it is using GPS, then transmits that position, its altitude, speed and callsign on 1090 MHz. There is no encryption and no subscription — it is a public safety broadcast so that other aircraft and controllers always know where everyone is.",
+        "Thousands of enthusiasts run small receivers on their rooftops and share what they hear. This site uses one of those volunteer networks.",
+        "That is also why coverage is uneven. Over land you see almost everything. In the middle of the Pacific, where nobody lives, there is nobody to listen — so planes seem to vanish and reappear."
+      ],
+      "bullets": [
+        "A receiver costs about the price of a video game. Feeding one would put your own rooftop on this map.",
+        "Position updates come roughly twice a second, which is why aircraft move smoothly here.",
+        "Some aircraft are deliberately hidden from public feeds, and military aircraft are filtered out of this site entirely."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "Where does an aircraft get the position it broadcasts?",
+          "options": ["From GPS satellites", "From ground radar", "From the pilot typing it in"],
+          "answer": 0,
+          "why": "ADS-B stands for Automatic Dependent Surveillance–Broadcast. It depends on the aircraft's own GPS."
+        },
+        {
+          "q": "Why is coverage poor over the middle of an ocean?",
+          "options": ["The signal is blocked by water", "There is nobody there to receive it", "Planes switch it off"],
+          "answer": 1,
+          "why": "The signal only travels line-of-sight, and receivers are on the ground where people live."
+        },
+        {
+          "q": "Is the ADS-B signal encrypted?",
+          "options": ["Yes, always", "No — it is a public broadcast", "Only at night"],
+          "answer": 1,
+          "why": "It is deliberately open so every nearby aircraft can use it to avoid collisions."
+        }
+      ]
+    },
+    {
+      "id": "contrails",
+      "topic": "How flying works",
+      "title": "Why do planes leave white trails?",
+      "teaser": "It is the same stuff as your breath on a cold morning.",
+      "hero": "Burning jet fuel makes water. High up, that water freezes instantly into a line of ice crystals.",
+      "body": [
+        "Jet fuel is made of hydrogen and carbon. When it burns, the hydrogen joins with oxygen from the air and becomes water vapour — roughly 1.2 kg of water for every kilogram of fuel burnt.",
+        "At cruise altitude the air is around −55 °C. The hot, wet exhaust meets that air, cools in a fraction of a second, and the water freezes onto tiny soot particles as ice crystals. That white line is a cloud you just watched being born.",
+        "Whether it lasts depends on the air. In dry air the crystals evaporate within seconds. In humid air they can spread out for hours into thin cirrus cloud."
+      ],
+      "bullets": [
+        "The proper name is a condensation trail, shortened to contrail.",
+        "Short trails that vanish quickly mean dry air aloft; long spreading ones often come before a change in weather.",
+        "You can sometimes see thin trails streaming off the wingtips in humid air — those are the vortices from the winglets card."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "What is a contrail made of?",
+          "options": ["Smoke", "Ice crystals", "Fuel droplets"],
+          "answer": 1,
+          "why": "Water vapour from burnt fuel freezes into ice crystals in the −55 °C air."
+        },
+        {
+          "q": "Where does the water come from?",
+          "options": ["From burning the fuel", "From clouds the plane flies through", "From the air conditioning"],
+          "answer": 0,
+          "why": "Burning hydrogen-rich fuel produces water. About 1.2 kg of it per kilogram of fuel."
+        },
+        {
+          "q": "A contrail that spreads out and lasts for hours tells you the air is…",
+          "options": ["very dry", "quite humid", "very warm"],
+          "answer": 1,
+          "why": "Dry air makes the crystals evaporate quickly; humid air lets them survive and spread."
+        }
+      ]
+    },
+    {
+      "id": "jet-stream",
+      "topic": "Where planes go",
+      "title": "Why is the flight home faster?",
+      "teaser": "There is a river of wind up there, and it only flows one way.",
+      "hero": "A ribbon of wind called the jet stream races west to east at cruise altitude, often faster than 200 km/h.",
+      "body": [
+        "Where cold polar air meets warm tropical air, the temperature difference sets up a narrow band of very fast wind high in the atmosphere. The Earth's rotation bends it, so it almost always blows from west to east.",
+        "A plane flying east can ride it and arrive early. Flying west it has to fight it, so the same route takes longer and burns more fuel. Tokyo to Los Angeles is routinely an hour shorter than Los Angeles to Tokyo.",
+        "This is why the ground speed on this site can look impossible. An aircraft flying at its normal speed through the air can show more than 550 knots over the ground with a strong tailwind."
+      ],
+      "bullets": [
+        "The jet stream is strongest in winter, when the temperature difference is biggest.",
+        "Airlines fly a different track each day, chosen from that morning's wind forecast.",
+        "A plane's speed through the air barely changes. What changes is the speed of the air itself."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "Which way does the jet stream usually blow?",
+          "options": ["West to east", "East to west", "North to south"],
+          "answer": 0,
+          "why": "The Earth's rotation bends the wind into a west-to-east flow."
+        },
+        {
+          "q": "Which flight is usually quicker?",
+          "options": ["Tokyo to Los Angeles", "Los Angeles to Tokyo", "They are the same"],
+          "answer": 0,
+          "why": "Flying east rides the jet stream. Flying west fights it."
+        },
+        {
+          "q": "A ground speed of 600 knots means the plane…",
+          "options": ["is flying much faster than normal through the air", "has a huge tailwind", "is descending"],
+          "answer": 1,
+          "why": "Its speed through the air is normal. The air itself is moving fast over the ground."
+        }
+      ]
+    },
+    {
+      "id": "wide-vs-narrow",
+      "topic": "Reading the sky",
+      "title": "Widebody or narrowbody?",
+      "teaser": "Count the aisles.",
+      "hero": "One aisle means narrowbody. Two aisles means widebody — and a much longer flight.",
+      "body": [
+        "A narrowbody such as the A320 or 737 has a cabin about 3.7 metres across: one aisle, three seats either side. They do the short and medium hops, often five or six flights a day.",
+        "A widebody such as the 787, A350 or 777 is 5.6 to 6.5 metres across, with two aisles. The extra width carries more passengers, more cargo and far more fuel, which is what makes crossing an ocean possible.",
+        "You can tell them apart from the ground. Widebodies have bigger engines, more main wheels, and doors well above head height on the airbridge."
+      ],
+      "bullets": [
+        "Narrowbody: A220, A320 family, 737, E190. Widebody: 767, 777, 787, A330, A350, 747, A380.",
+        "The A380 is the only airliner in service with two full-length passenger decks.",
+        "This site draws widebodies with a bigger icon, so the size difference shows on the map."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "The quickest way to tell a widebody from the inside is…",
+          "options": ["count the aisles", "count the windows", "look at the seat colour"],
+          "answer": 0,
+          "why": "One aisle is narrowbody, two aisles is widebody. It is that simple."
+        },
+        {
+          "q": "Which of these is a narrowbody?",
+          "options": ["Airbus A350", "Boeing 787", "Airbus A321neo"],
+          "answer": 2,
+          "why": "The A321neo is a long single-aisle aircraft. Long is not the same as wide."
+        },
+        {
+          "q": "Why do widebodies fly the long routes?",
+          "options": ["They carry much more fuel", "They fly higher", "They are lighter"],
+          "answer": 0,
+          "why": "A wider body means more room for fuel and cargo, which is what long range needs."
+        }
+      ]
+    },
+    {
+      "id": "runway-numbers",
+      "topic": "Airports",
+      "title": "What do the big numbers on a runway mean?",
+      "teaser": "It is a compass reading with a zero chopped off.",
+      "hero": "Runway 33 points towards 330 degrees on the compass. Drop the last digit and you have the number.",
+      "body": [
+        "Every runway is painted with the magnetic direction it points, divided by ten and rounded. A runway pointing at 328 degrees is painted 33.",
+        "The same strip of concrete has a number at each end, and they always differ by 18, because the two ends point in opposite directions — 180 degrees apart. Runway 33 from one end is runway 15 from the other.",
+        "Where an airport has parallel runways, letters are added: L for left, C for centre, R for right. Incheon has 15L/33R, 15R/33L and more."
+      ],
+      "bullets": [
+        "Runways face into the prevailing wind, because taking off and landing into wind is safer and needs less runway.",
+        "Earth's magnetic field drifts, so occasionally an airport has to repaint its runway numbers.",
+        "Incheon's runways run roughly north-west to south-east: 15 and 33."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "Runway 09 points towards…",
+          "options": ["9 degrees", "90 degrees — east", "900 metres"],
+          "answer": 1,
+          "why": "Multiply by ten. 09 means 090 degrees, which is due east."
+        },
+        {
+          "q": "The number at the other end of runway 04 is…",
+          "options": ["14", "22", "40"],
+          "answer": 1,
+          "why": "Always add or subtract 18. 04 + 18 = 22."
+        },
+        {
+          "q": "Why do runways point into the wind?",
+          "options": ["It looks better", "It is safer and needs less runway", "It saves paint"],
+          "answer": 1,
+          "why": "A headwind gives the wing more airflow at a lower ground speed, so the plane can lift off sooner."
+        }
+      ]
+    },
+    {
+      "id": "white-planes",
+      "topic": "Design details",
+      "title": "Why are nearly all planes white?",
+      "teaser": "Paint is heavy, and sunshine is hot.",
+      "hero": "White reflects sunlight, hides nothing important, and weighs less than colour.",
+      "body": [
+        "Parked on a summer apron, a dark aircraft absorbs a great deal of heat. That makes the cabin hot before anyone boards and puts thermal stress on the skin. White reflects most of it away.",
+        "Paint is also surprisingly heavy. A full coat on a widebody can weigh several hundred kilograms, and every kilogram costs fuel for the aircraft's whole life. Airlines keep the coloured area small for exactly that reason.",
+        "White is practical in other ways too. Cracks, oil leaks and bird strikes show up against it immediately, it does not fade like red or blue in ultraviolet light, and a white aircraft is easier to sell to the next airline."
+      ],
+      "bullets": [
+        "Painting a large airliner can add roughly 250–500 kg depending on the design.",
+        "Some airlines leave part of the fuselage as bare polished metal to save even that.",
+        "Special liveries — anniversary schemes and cartoon characters — are deliberately rare, and worth photographing when you spot one."
+      ],
+      "interactive": null,
+      "quiz": [
+        {
+          "q": "One reason planes are white is that white…",
+          "options": ["reflects sunlight and keeps the aircraft cooler", "is the cheapest colour of paint", "shows up better on radar"],
+          "answer": 0,
+          "why": "Radar does not care about colour. Heat and weight are the real reasons."
+        },
+        {
+          "q": "Why do airlines worry about how much paint they use?",
+          "options": ["It is heavy, and weight costs fuel", "It is hard to buy", "It confuses air traffic control"],
+          "answer": 0,
+          "why": "A few hundred kilograms of paint burns fuel on every single flight for decades."
+        },
+        {
+          "q": "A white fuselage also makes it easier to spot…",
+          "options": ["cracks and oil leaks", "passengers", "the runway"],
+          "answer": 0,
+          "why": "Engineers can see damage and leaks against white far more easily than against a dark colour."
+        }
+      ]
+    }
+  ]
+}

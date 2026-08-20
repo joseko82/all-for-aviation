@@ -42,6 +42,12 @@ That's it. You never need to run a command in a terminal.
 | `src/lib/badges.ts` | The 18 badges and the rules that unlock them. |
 | `src/lib/airlines.ts` | Callsign prefix → airline name, e.g. `KAL` → Korean Air. |
 | `src/lib/route.ts` | Picks which leg of a multi-stop route a plane is on. |
+| `src/components/SizeCompare.tsx` | The size comparison page. |
+| `src/components/LearnIndex.tsx`, `LearnCardView.tsx`, `Quiz.tsx` | The learning cards and their quizzes. |
+| `src/components/LiftLab.tsx` | The interactive wing on the "how does a wing lift" card. |
+| `src/lib/aircraftSpecs.ts`, `silhouette.ts` | Published dimensions, and the drawings generated from them. |
+| `content/learn/en.json` | **Every word of the learning articles and quizzes.** |
+| `tools/unit-tests.cjs` | Pure-logic tests. Run with `npm run test:unit`. |
 | `src/lib/` | Pure logic: geometry, unit formatting, aircraft classification, hub list. |
 | `messages/en.json` | **Every word shown on screen.** Adding Korean means adding `messages/ko.json`. |
 
@@ -59,6 +65,11 @@ That's it. You never need to run a command in a terminal.
   logbook, and it does not follow the user to another device.
 - **English only today, but built for more.** Locale is already in the URL,
   every string is in a message file, and numbers and units go through `Intl`.
+  Article text lives in `content/learn/`, separate from the UI strings in
+  `messages/`, because a button label can be translated mechanically but an
+  explanation aimed at a 12-year-old has to be rewritten.
+- **The logbook survives upgrades.** Stored data is versioned and migrated
+  additively, so adding a feature never wipes a collection.
 
 ## Data sources and credits
 
@@ -76,8 +87,9 @@ Not affiliated with any airline or airport.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm run test:unit  # pure-logic tests (route legs, streaks, logbook migration)
 ```
 
 Node 20+ required. No environment variables are needed to run it.
