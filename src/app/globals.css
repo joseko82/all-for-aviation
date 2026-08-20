@@ -1,0 +1,402 @@
+/* ---------------------------------------------------------------------------
+   All For Aviation — base styles
+   Dark "night sky" theme so the altitude colours on the aircraft pop.
+   Layout uses CSS logical properties throughout so a right-to-left locale
+   can be added later without rewriting any of this.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --bg: #0a0f1a;
+  --bg-panel: #111a2b;
+  --bg-panel-2: #17223a;
+  --border: #24304a;
+  --text: #e8eefc;
+  --text-dim: #97a4bf;
+  --accent: #4cc4ff;
+  --accent-warm: #ff9d2e;
+  --radius: 14px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --font: system-ui, -apple-system, 'Segoe UI', 'Apple SD Gothic Neo',
+    'Noto Sans KR', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; }
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* --- header ------------------------------------------------------------- */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  background: linear-gradient(180deg, #0d1524 0%, #0a0f1a 100%);
+  border-block-end: 1px solid var(--border);
+  flex: 0 0 auto;
+  z-index: 5;
+}
+
+.brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  min-inline-size: 0;
+}
+
+.brand h1 {
+  font-size: 18px;
+  margin: 0;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.brand .tagline {
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search {
+  margin-inline-start: auto;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.search input {
+  inline-size: min(46vw, 340px);
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.search input::placeholder { color: #64748b; }
+.search input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.search button {
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: #04121d;
+  font-weight: 650;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.search button:disabled { opacity: 0.5; cursor: default; }
+
+/* --- hub bar ------------------------------------------------------------ */
+
+.hubbar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  background: #0c1322;
+  border-block-end: 1px solid var(--border);
+  flex: 0 0 auto;
+  scrollbar-width: thin;
+}
+
+.hubbar .label {
+  font-size: 12px;
+  color: var(--text-dim);
+  align-self: center;
+  white-space: nowrap;
+  margin-inline-end: 4px;
+}
+
+.hub {
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.hub:hover { background: var(--bg-panel-2); border-color: var(--accent); }
+.hub .iata { font-weight: 700; letter-spacing: 0.03em; }
+.hub .city { color: var(--text-dim); margin-inline-start: 6px; }
+
+/* --- map ---------------------------------------------------------------- */
+
+.map-wrap {
+  position: relative;
+  flex: 1 1 auto;
+  min-block-size: 0;
+}
+
+/* Two class names on purpose: maplibre-gl.css ships `.maplibregl-map
+   { position: relative }` and is loaded after this file, so a single-class
+   selector here would lose the cascade and collapse the map to zero height. */
+.map-wrap .map {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.map canvas { outline: none; }
+
+.status {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-start: 12px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.pill {
+  background: rgba(17, 26, 43, 0.9);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--text);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+}
+
+.pill.warn { border-color: #7a3b2a; color: #ffcdbb; }
+
+/* --- legend ------------------------------------------------------------- */
+
+.legend {
+  position: absolute;
+  inset-block-end: 26px;
+  inset-inline-start: 12px;
+  z-index: 2;
+  background: rgba(17, 26, 43, 0.9);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow);
+  font-size: 11px;
+}
+
+.legend h2 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+.legend ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.legend li { display: flex; align-items: center; gap: 8px; color: var(--text-dim); }
+.legend .swatch { inline-size: 12px; block-size: 12px; border-radius: 3px; flex: 0 0 auto; }
+
+/* --- aircraft panel ----------------------------------------------------- */
+
+.panel {
+  position: absolute;
+  inset-block-start: 12px;
+  inset-inline-end: 12px;
+  inline-size: min(92vw, 340px);
+  max-block-size: calc(100% - 24px);
+  overflow-y: auto;
+  z-index: 4;
+  background: rgba(17, 26, 43, 0.96);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.panel-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 14px 10px;
+  border-block-end: 1px solid var(--border);
+}
+
+.panel-head .who { min-inline-size: 0; flex: 1 1 auto; }
+.panel-head .callsign {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.panel-head .model { font-size: 13px; color: var(--accent); margin: 2px 0 0; }
+.panel-head .reg { font-size: 12px; color: var(--text-dim); margin: 4px 0 0; }
+
+.panel-close {
+  flex: 0 0 auto;
+  inline-size: 30px;
+  block-size: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel-2);
+  color: var(--text-dim);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+.panel-close:hover { color: var(--text); }
+
+.route {
+  padding: 14px;
+  border-block-end: 1px solid var(--border);
+}
+
+.route-ends {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.route-end { min-inline-size: 0; }
+.route-end.to { text-align: end; }
+.route-end .code { font-size: 22px; font-weight: 700; letter-spacing: 0.02em; }
+.route-end .city {
+  font-size: 12px;
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-inline-size: 120px;
+}
+
+.progress {
+  margin-block-start: 12px;
+  block-size: 6px;
+  border-radius: 999px;
+  background: #1e2b45;
+  overflow: hidden;
+}
+.progress span {
+  display: block;
+  block-size: 100%;
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent));
+  border-radius: 999px;
+}
+
+.route-meta {
+  margin-block-start: 8px;
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.route-unknown {
+  padding: 14px;
+  border-block-end: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.5;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border-block-end: 1px solid var(--border);
+}
+
+.stat { background: var(--bg-panel); padding: 12px 14px; }
+.stat dt {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  margin: 0 0 4px;
+}
+.stat dd { margin: 0; font-size: 16px; font-weight: 600; }
+
+.panel-actions { padding: 12px 14px; }
+
+.panel-actions button {
+  inline-size: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel-2);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+}
+.panel-actions button.active {
+  background: var(--accent);
+  color: #04121d;
+  border-color: var(--accent);
+  font-weight: 650;
+}
+
+/* --- footer ------------------------------------------------------------- */
+
+.footer {
+  flex: 0 0 auto;
+  padding: 8px 16px;
+  font-size: 11px;
+  color: var(--text-dim);
+  background: #0c1322;
+  border-block-start: 1px solid var(--border);
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* --- small screens ------------------------------------------------------ */
+
+@media (max-width: 720px) {
+  .brand .tagline { display: none; }
+  .search { inline-size: 100%; margin-inline-start: 0; }
+  .search input { inline-size: 100%; }
+  .header { flex-wrap: wrap; }
+  .panel {
+    inset-block-start: auto;
+    inset-block-end: 0;
+    inset-inline: 0;
+    inline-size: 100%;
+    max-block-size: 62%;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .legend { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "title": "All For Aviation",
+    "description": "Watch real airliners fly around the world, right now."
+  },
+  "nav": {
+    "map": "Live Map",
+    "tagline": "Every plane in the sky, right now"
+  },
+  "map": {
+    "loading": "Looking for aeroplanes…",
+    "counting": "{count, plural, =0 {No airliners here right now} one {# airliner in view} other {# airliners in view}}",
+    "offline": "Can't reach the flight network right now. Trying again in a moment.",
+    "zoomHint": "Pick an airport below, or zoom in to see planes near you",
+    "worldMode": "World view — showing planes around major hubs",
+    "attribution": "Flight data by adsb.lol · Map © OpenMapTiles, OpenStreetMap contributors",
+    "updated": "Updated {seconds}s ago",
+    "myLocation": "Near me"
+  },
+  "search": {
+    "placeholder": "Flight number or tail number, e.g. KAL017 or HL7642",
+    "label": "Search for a plane",
+    "notFound": "No plane found with that name. It may not be flying right now.",
+    "hint": "Tip: use the radio callsign. Korean Air 17 is KAL017, not KE017."
+  },
+  "panel": {
+    "close": "Close",
+    "unknownFlight": "Unknown flight",
+    "unknownType": "Unknown aircraft type",
+    "registration": "Tail number",
+    "altitude": "Altitude",
+    "speed": "Speed",
+    "heading": "Heading",
+    "verticalRate": "Climb / descent",
+    "onGround": "On the ground",
+    "climbing": "Climbing",
+    "descending": "Descending",
+    "level": "Cruising level",
+    "route": "Route",
+    "routeUnknown": "We don't know where this one is going yet — watch which way it's pointing!",
+    "progress": "{percent}% of the way there",
+    "distanceToGo": "{distance} to go",
+    "follow": "Follow this plane",
+    "unfollow": "Stop following"
+  },
+  "legend": {
+    "title": "Altitude",
+    "ground": "On the ground",
+    "low": "Just took off / landing",
+    "climb": "Climbing out",
+    "mid": "Middle altitude",
+    "high": "Nearly at cruise",
+    "cruise": "Cruising high"
+  },
+  "hubs": {
+    "title": "Jump to a big airport",
+    "RKSI": "Korea's main gateway",
+    "RJTT": "Tokyo's city airport",
+    "ZBAA": "One of the world's busiest",
+    "VHHH": "Hong Kong",
+    "WSSS": "Singapore Changi",
+    "OMDB": "Home of the A380 fleet",
+    "EGLL": "London Heathrow",
+    "EHAM": "Amsterdam Schiphol",
+    "KJFK": "New York",
+    "KLAX": "Los Angeles",
+    "KATL": "Atlanta",
+    "YSSY": "Sydney"
+  },
+  "footer": {
+    "notAffiliated": "Not affiliated with any airline or airport. Made for a curious 12-year-old.",
+    "dataNote": "Positions come from volunteer ADS-B receivers and can be a few seconds old."
+  }
+}
