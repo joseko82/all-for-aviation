@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import type { Aircraft, FlightRoute } from '@/lib/types';
 import { typeName } from '@/lib/aircraft';
+import { lookupAirline, flagEmoji } from '@/lib/airlines';
+import { pickCurrentLeg } from '@/lib/route';
 import {
   compassPoint,
   formatAltitude,
@@ -20,6 +22,8 @@ interface Props {
   following: boolean;
   units: UnitSystem;
   locale: string;
+  /** How many times this airframe is already in the logbook. */
+  sightingCount: number;
   onClose: () => void;
   onToggleFollow: () => void;
 }
@@ -31,37 +35,50 @@ export default function AircraftPanel({
   following,
   units,
   locale,
+  sightingCount,
   onClose,
   onToggleFollow,
 }: Props) {
   const t = useTranslations('panel');
 
   const model = typeName(aircraft.type);
-  const from = route?.airports[0];
-  const to = route?.airports[route.airports.length - 1];
+  const airline = lookupAirline(aircraft.cs);
+  const here = { lat: aircraft.lat, lon: aircraft.lon };
+
+  // Multi-stop routes exist (ETH672 is ADD → ICN → NRT). Show the leg the
+  // aircraft is actually on, not the first and last airport of the whole trip.
+  const leg = pickCurrentLeg(route?.airports, here);
+  const from = leg?.from;
+  const to = leg?.to;
 
   let progress: number | null = null;
   let remaining: number | null = null;
   if (from && to) {
-    const here = { lat: aircraft.lat, lon: aircraft.lon };
     progress = routeProgress(from, to, here);
     remaining = distanceNm(here, to);
   }
 
-  const vertical =
-    aircraft.ground
-      ? t('onGround')
-      : aircraft.vr > 200
-        ? t('climbing')
-        : aircraft.vr < -200
-          ? t('descending')
-          : t('level');
+  const vertical = aircraft.ground
+    ? t('onGround')
+    : aircraft.vr > 200
+      ? t('climbing')
+      : aircraft.vr < -200
+        ? t('descending')
+        : t('level');
 
   return (
     <aside className="panel" aria-live="polite">
       <div className="panel-head">
         <div className="who">
           <p className="callsign">{aircraft.cs || t('unknownFlight')}</p>
+          {airline ? (
+            <p className="airline">
+              <span aria-hidden="true">{flagEmoji(airline.country)}</span> {airline.name}
+              {airline.cargo && <span className="tag">{t('cargoFlight')}</span>}
+            </p>
+          ) : (
+            <p className="airline dim">{t('unknownAirline')}</p>
+          )}
           <p className="model">{model ?? aircraft.type ?? t('unknownType')}</p>
           {aircraft.reg && (
             <p className="reg">
@@ -73,6 +90,10 @@ export default function AircraftPanel({
           ×
         </button>
       </div>
+
+      <p className="logged">
+        {sightingCount > 1 ? t('seenBefore', { count: sightingCount }) : t('addedToLogbook')}
+      </p>
 
       {from && to ? (
         <div className="route">
@@ -86,6 +107,7 @@ export default function AircraftPanel({
               <div className="city">{to.location}</div>
             </div>
           </div>
+
           {progress !== null && (
             <>
               <div
@@ -101,27 +123,30 @@ export default function AircraftPanel({
                 <span>{t('progress', { percent: Math.round(progress * 100) })}</span>
                 {remaining !== null && (
                   <span>
-                    {t('distanceToGo', {
-                      distance: formatDistance(remaining, units, locale),
-                    })}
+                    {t('distanceToGo', { distance: formatDistance(remaining, units, locale) })}
                   </span>
                 )}
               </div>
             </>
           )}
+
+          {leg && leg.total > 1 && (
+            <p className="route-leg dim">
+              {t('legOf', { index: leg.index + 1, total: leg.total })} ·{' '}
+              {t('fullRoute', {
+                route: (route?.airports ?? []).map((a) => a.iata || a.icao).join(' → '),
+              })}
+            </p>
+          )}
         </div>
       ) : (
-        <div className="route-unknown">
-          {routeLoading ? '…' : t('routeUnknown')}
-        </div>
+        <div className="route-unknown">{routeLoading ? '…' : t('routeUnknown')}</div>
       )}
 
       <dl className="stats">
         <div className="stat">
           <dt>{t('altitude')}</dt>
-          <dd>
-            {aircraft.ground ? t('onGround') : formatAltitude(aircraft.alt, units, locale)}
-          </dd>
+          <dd>{aircraft.ground ? t('onGround') : formatAltitude(aircraft.alt, units, locale)}</dd>
         </div>
         <div className="stat">
           <dt>{t('speed')}</dt>

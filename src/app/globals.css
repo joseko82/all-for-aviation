@@ -400,3 +400,291 @@ button { font-family: inherit; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
 }
+
+/* ---------------------------------------------------------------------------
+   Logbook, badges and toasts (phase 2)
+   --------------------------------------------------------------------------- */
+
+.dim { color: var(--text-dim); }
+.small { font-size: 13px !important; }
+
+/* --- header button ------------------------------------------------------ */
+
+.logbook-btn {
+  margin-inline-start: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.logbook-btn:hover { border-color: var(--accent); }
+
+.logbook-btn .count {
+  min-inline-size: 22px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #04121d;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* The search box no longer needs the auto margin — the logbook button has it. */
+.header .search { margin-inline-start: 12px; }
+
+/* --- panel additions ---------------------------------------------------- */
+
+.panel-head .airline {
+  font-size: 13px;
+  margin: 3px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.panel-head .airline .tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: #33270f;
+  color: var(--accent-warm);
+}
+
+.logged {
+  margin: 0;
+  padding: 8px 14px;
+  font-size: 12px;
+  color: var(--accent);
+  background: rgba(76, 196, 255, 0.07);
+  border-block-end: 1px solid var(--border);
+}
+
+.route-leg {
+  margin: 10px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+/* --- logbook drawer ----------------------------------------------------- */
+
+.logbook-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: rgba(4, 8, 16, 0.62);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logbook {
+  inline-size: min(100vw, 460px);
+  block-size: 100%;
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-inline-start: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.logbook-head {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-panel);
+  border-block-end: 1px solid var(--border);
+}
+
+.logbook-head h2 { margin: 0; font-size: 18px; flex: 1 1 auto; }
+
+.logbook-empty { padding: 28px 16px; text-align: center; line-height: 1.6; }
+.logbook-empty p { margin: 0 0 8px; }
+
+.logbook-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 1px;
+  margin: 0;
+  background: var(--border);
+  border-block-end: 1px solid var(--border);
+}
+
+.logbook-stats > div { background: var(--bg-panel); padding: 12px 14px; }
+.logbook-stats dt {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-dim);
+  margin: 0 0 4px;
+}
+.logbook-stats dd { margin: 0; font-size: 20px; font-weight: 700; }
+
+.logbook-section { padding: 16px; border-block-end: 1px solid var(--border); }
+.logbook-section h3 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+
+/* --- badges ------------------------------------------------------------- */
+
+.badge-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 10px;
+}
+
+.badge {
+  position: relative;
+  padding: 12px 10px 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-panel-2);
+  text-align: center;
+  overflow: hidden;
+}
+
+.badge-symbol { display: block; font-size: 22px; line-height: 1.1; margin-block-end: 6px; }
+.badge-name { display: block; font-size: 12px; font-weight: 650; }
+.badge-hint {
+  display: block;
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--text-dim);
+  margin-block-start: 4px;
+}
+
+.badge.locked { opacity: 0.45; }
+.badge.locked .badge-symbol { color: var(--text-dim); }
+
+.badge.earned.bronze { border-color: #8a5a33; }
+.badge.earned.bronze .badge-symbol { color: #d98b4a; }
+.badge.earned.silver { border-color: #6b7c93; }
+.badge.earned.silver .badge-symbol { color: #b9c8de; }
+.badge.earned.gold { border-color: #9c7c22; }
+.badge.earned.gold .badge-symbol { color: #ffd24a; }
+.badge.earned { background: linear-gradient(180deg, #1b2740 0%, var(--bg-panel-2) 100%); }
+
+.badge-progress {
+  position: absolute;
+  inset-block-end: 0;
+  inset-inline: 0;
+  block-size: 3px;
+  background: #1e2b45;
+  display: block;
+}
+.badge-progress > span { display: block; block-size: 100%; background: var(--accent); }
+
+/* --- sighting list ------------------------------------------------------ */
+
+.sighting-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.sighting-list li {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--bg-panel-2);
+  border: 1px solid var(--border);
+}
+.sighting-main { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.sighting-cs { font-weight: 700; font-size: 14px; letter-spacing: 0.02em; }
+.sighting-type { font-size: 12px; color: var(--accent); text-align: end; }
+.sighting-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-block-start: 4px;
+  font-size: 11px;
+}
+
+.logbook-foot { padding: 16px; display: grid; gap: 12px; }
+.logbook-foot p { margin: 0; font-size: 11px; line-height: 1.5; }
+
+.logbook-foot .danger {
+  padding: 9px 12px;
+  border-radius: 10px;
+  border: 1px solid #6b2f2f;
+  background: transparent;
+  color: #ff9d9d;
+  font-size: 13px;
+  cursor: pointer;
+}
+.logbook-foot .danger:hover { background: rgba(255, 100, 100, 0.08); }
+
+/* --- badge toast -------------------------------------------------------- */
+
+.toast-stack {
+  position: absolute;
+  inset-block-end: 24px;
+  inset-inline: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(17, 26, 43, 0.97);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  animation: toast-in 320ms ease-out;
+}
+
+.toast-symbol { font-size: 22px; }
+.toast-text { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.25; }
+.toast-text strong {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-dim);
+  font-weight: 600;
+}
+.toast-text span { font-size: 15px; font-weight: 650; }
+
+.toast.bronze { border-color: #8a5a33; }
+.toast.bronze .toast-symbol { color: #d98b4a; }
+.toast.silver { border-color: #6b7c93; }
+.toast.silver .toast-symbol { color: #b9c8de; }
+.toast.gold { border-color: #9c7c22; }
+.toast.gold .toast-symbol { color: #ffd24a; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 720px) {
+  .logbook-btn { margin-inline-start: auto; }
+  .header .search { margin-inline-start: 0; }
+  .logbook { inline-size: 100vw; }
+  .toast-stack { inset-block-end: auto; inset-block-start: 12px; }
+}

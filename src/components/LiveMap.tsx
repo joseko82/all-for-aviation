@@ -6,7 +6,21 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 import { useLocale, useTranslations } from 'next-intl';
 
 import AircraftPanel from './AircraftPanel';
+import BadgeToast from './BadgeToast';
+import LogbookPanel from './LogbookPanel';
 import { iconId, registerPlaneIcons, SELECTED_ICON } from './planeIcons';
+import { evaluateBadges } from '@/lib/badges';
+import {
+  computeStats,
+  EMPTY as EMPTY_LOGBOOK,
+  load as loadLogbook,
+  recordSighting,
+  recordVisit,
+  save as saveLogbook,
+  type Logbook,
+  type Stats,
+} from '@/lib/logbook';
+import { pickCurrentLeg } from '@/lib/route';
 import { silhouetteFor } from '@/lib/aircraft';
 import { ALT_BAND_COLOR, altitudeBand, type UnitSystem } from '@/lib/format';
 import { destinationPoint, greatCirclePath, viewportRadiusNm } from '@/lib/geo';
@@ -75,6 +89,12 @@ export default function LiveMap() {
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState(false);
 
+  const [book, setBook] = useState<Logbook>(EMPTY_LOGBOOK);
+  const [bookLoaded, setBookLoaded] = useState(false);
+  const [stats, setStats] = useState<Stats>(() => computeStats(EMPTY_LOGBOOK));
+  const [showLogbook, setShowLogbook] = useState(false);
+  const [newBadges, setNewBadges] = useState<string[]>([]);
+
   // -------------------------------------------------------------------------
   // Selection
   // -------------------------------------------------------------------------
@@ -91,6 +111,48 @@ export default function LiveMap() {
     }
     const a = tracksRef.current.get(id);
     setSelected(a ? { ...a } : null);
+  }, []);
+
+  // -------------------------------------------------------------------------
+  // Logbook: load on mount, record a sighting per selection, award badges
+  // -------------------------------------------------------------------------
+
+  useEffect(() => {
+    const loaded = recordVisit(loadLogbook());
+    setBook(loaded);
+    setBookLoaded(true);
+  }, []);
+
+  const selectedId = selected?.id ?? null;
+
+  useEffect(() => {
+    if (!bookLoaded || !selectedId) return;
+    const a = tracksRef.current.get(selectedId);
+    if (!a) return;
+    setBook((prev) => recordSighting(prev, a));
+    // Only the identity of the selected aircraft should log a sighting;
+    // position updates must not inflate the count.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId, bookLoaded]);
+
+  useEffect(() => {
+    if (!bookLoaded) return;
+    const s = computeStats(book);
+    setStats(s);
+    const { book: awarded, newlyEarned } = evaluateBadges(book, s);
+    if (newlyEarned.length > 0) {
+      setNewBadges((prev) => [...prev, ...newlyEarned]);
+      setBook(awarded);
+      return; // this effect re-runs with the awarded book and then settles
+    }
+    saveLogbook(awarded);
+  }, [book, bookLoaded]);
+
+  const resetLogbook = useCallback(() => {
+    const fresh = recordVisit({ v: 1, sightings: {}, days: [], badges: {} });
+    setBook(fresh);
+    saveLogbook(fresh);
+    setNewBadges([]);
   }, []);
 
   // Fetch the scheduled route whenever the selected callsign changes.
@@ -472,8 +534,11 @@ export default function LiveMap() {
     const endsSrc = map.getSource('route-ends') as GeoJSONSource | undefined;
     if (!routeSrc || !endsSrc) return;
 
-    const from = route?.airports[0];
-    const to = route?.airports[route.airports.length - 1];
+    const leg = selected
+      ? pickCurrentLeg(route?.airports, { lat: selected.lat, lon: selected.lon })
+      : null;
+    const from = leg?.from;
+    const to = leg?.to;
 
     if (!from || !to) {
       routeSrc.setData(EMPTY_FC);
@@ -495,7 +560,7 @@ export default function LiveMap() {
         properties: { code: ap.iata || ap.icao },
       })),
     });
-  }, [route, styleReady]);
+  }, [route, styleReady, selected]);
 
   // -------------------------------------------------------------------------
   // Actions
@@ -555,6 +620,14 @@ export default function LiveMap() {
           <h1>{t('meta.title')}</h1>
           <span className="tagline">{t('nav.tagline')}</span>
         </div>
+        <button
+          className="logbook-btn"
+          onClick={() => setShowLogbook(true)}
+          aria-haspopup="dialog"
+        >
+          {t('logbook.open')}
+          {stats.planes > 0 && <span className="count">{stats.planes}</span>}
+        </button>
         <form className="search" onSubmit={runSearch} role="search">
           <input
             type="search"
@@ -617,11 +690,25 @@ export default function LiveMap() {
             following={following}
             units={units}
             locale={locale}
+            sightingCount={book.sightings[selected.id]?.count ?? 1}
             onClose={() => select(null)}
             onToggleFollow={toggleFollow}
           />
         )}
+
+        <BadgeToast badgeIds={newBadges} onDismiss={() => setNewBadges([])} />
       </div>
+
+      {showLogbook && (
+        <LogbookPanel
+          book={book}
+          stats={stats}
+          units={units}
+          locale={locale}
+          onClose={() => setShowLogbook(false)}
+          onReset={resetLogbook}
+        />
+      )}
 
       <footer className="footer">
         <span>{t('map.attribution')}</span>

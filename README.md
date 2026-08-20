@@ -36,6 +36,12 @@ That's it. You never need to run a command in a terminal.
 | `src/components/LiveMap.tsx` | The map itself: polling, animation, selection, search. |
 | `src/components/AircraftPanel.tsx` | The card that opens when you click an aeroplane. |
 | `src/components/planeIcons.ts` | Draws the aeroplane icons in the browser. No image files needed. |
+| `src/components/LogbookPanel.tsx` | The spotting logbook: stats, badges, recent sightings. |
+| `src/components/BadgeToast.tsx` | The "New badge!" celebration. |
+| `src/lib/logbook.ts` | Logbook storage (browser only) and statistics. |
+| `src/lib/badges.ts` | The 18 badges and the rules that unlock them. |
+| `src/lib/airlines.ts` | Callsign prefix → airline name, e.g. `KAL` → Korean Air. |
+| `src/lib/route.ts` | Picks which leg of a multi-stop route a plane is on. |
 | `src/lib/` | Pure logic: geometry, unit formatting, aircraft classification, hub list. |
 | `messages/en.json` | **Every word shown on screen.** Adding Korean means adding `messages/ko.json`. |
 
@@ -46,7 +52,11 @@ That's it. You never need to run a command in a terminal.
   cached response serve every visitor instead of one request per person.
 - **Military aircraft are always filtered out**, and by default so is anything
   that is not an airliner. This is a site about passenger jets.
-- **No accounts, no login, no tracking.** Nothing personal is stored anywhere.
+- **No accounts, no login, no tracking.** The logbook lives in `localStorage`
+  on the one device that made it. Nothing personal is stored on any server,
+  which is both the right call for a site aimed at a child and the reason this
+  costs nothing to run. The trade-off is real: clearing browser data erases the
+  logbook, and it does not follow the user to another device.
 - **English only today, but built for more.** Locale is already in the URL,
   every string is in a message file, and numbers and units go through `Intl`.
 
@@ -55,6 +65,7 @@ That's it. You never need to run a command in a terminal.
 - Aircraft positions: [adsb.lol](https://www.adsb.lol) (open data, volunteer receivers)
 - Backup positions: [OpenSky Network](https://opensky-network.org)
 - Route database: adsb.lol standing data
+- Airline names: hand-curated in `src/lib/airlines.ts` (no licensed database)
 - Map tiles: [OpenFreeMap](https://openfreemap.org), © OpenMapTiles, © OpenStreetMap contributors
 
 Not affiliated with any airline or airport.
