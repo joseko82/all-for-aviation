@@ -20,6 +20,23 @@ const OPENSKY_API_BASE = 'https://opensky-network.org/api';
 
 const UA = 'all-for-aviation/0.1 (hobby project; contact via GitHub)';
 
+/**
+ * Live positions must never come from Next.js's Data Cache.
+ *
+ * `next: { revalidate: N }` looks right but behaves as stale-while-revalidate:
+ * the first request after the TTL expires is served the OLD copy and only
+ * refreshes in the background. On a quiet family site almost every visit lands
+ * on an expired entry, so the first person to open the map sees where the
+ * aircraft were hours ago — exactly the wrong failure for "is that plane
+ * overhead right now?". Measured in production: a cached response was still
+ * being served 90 minutes later.
+ *
+ * Upstream load is shed by the `Cache-Control: s-maxage` header we return
+ * instead. That is a CDN-level cache shared by every visitor, and it hard-
+ * revalidates once the stale window is exhausted.
+ */
+const LIVE_FETCH_CACHE = 'no-store' as const;
+
 /** Raw record as returned by the ADSBx v2-compatible feed. */
 interface RawAircraft {
   hex?: string;
@@ -84,14 +101,13 @@ export async function fetchNearPoint(
   lon: number,
   distNm: number,
   opts: FetchOptions,
-  revalidateSeconds = 10,
 ): Promise<Aircraft[]> {
   const r = Math.max(1, Math.min(250, Math.round(distNm)));
   const url = `${ADSB_LOL_BASE}/v2/point/${lat.toFixed(4)}/${lon.toFixed(4)}/${r}`;
 
   const res = await fetch(url, {
     headers: { 'User-Agent': UA, Accept: 'application/json' },
-    next: { revalidate: revalidateSeconds },
+    cache: LIVE_FETCH_CACHE,
   });
   if (!res.ok) throw new Error(`adsb.lol responded ${res.status}`);
 
@@ -107,7 +123,7 @@ export async function fetchByCallsign(callsign: string, opts: FetchOptions): Pro
   if (!cs) return [];
   const res = await fetch(`${ADSB_LOL_BASE}/v2/callsign/${cs}`, {
     headers: { 'User-Agent': UA, Accept: 'application/json' },
-    next: { revalidate: 10 },
+    cache: LIVE_FETCH_CACHE,
   });
   if (!res.ok) throw new Error(`adsb.lol responded ${res.status}`);
   const data = (await res.json()) as { ac?: RawAircraft[] };
@@ -122,7 +138,7 @@ export async function fetchByRegistration(reg: string, opts: FetchOptions): Prom
   if (!r) return [];
   const res = await fetch(`${ADSB_LOL_BASE}/v2/reg/${r}`, {
     headers: { 'User-Agent': UA, Accept: 'application/json' },
-    next: { revalidate: 10 },
+    cache: LIVE_FETCH_CACHE,
   });
   if (!res.ok) throw new Error(`adsb.lol responded ${res.status}`);
   const data = (await res.json()) as { ac?: RawAircraft[] };
@@ -213,7 +229,7 @@ export async function fetchOpenSkyBox(
       'User-Agent': UA,
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
-    next: { revalidate: 30 },
+    cache: LIVE_FETCH_CACHE,
   });
   if (!res.ok) throw new Error(`OpenSky responded ${res.status}`);
 

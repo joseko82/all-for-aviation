@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 
   if (sp.get('mode') === 'hubs') {
     const results = await Promise.allSettled(
-      WORLD_HUBS.map((h) => fetchNearPoint(h.lat, h.lon, 250, opts, HUBS_CACHE)),
+      WORLD_HUBS.map((h) => fetchNearPoint(h.lat, h.lon, 250, opts)),
     );
 
     const seen = new Set<string>();
@@ -76,7 +76,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const aircraft = await fetchNearPoint(lat, lon, dist, opts, POINT_CACHE);
+    const aircraft = await fetchNearPoint(lat, lon, dist, opts);
     return ok({ now: Date.now(), source: 'adsb.lol', aircraft }, POINT_CACHE);
   } catch {
     // Primary source failed — try OpenSky with a bounding box of roughly the
