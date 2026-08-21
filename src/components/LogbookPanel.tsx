@@ -28,6 +28,7 @@ export default function LogbookPanel({ book, stats, units, locale, onClose, onRe
 
   const earnedCount = BADGES.filter((b) => book.badges[b.id]).length;
   const timeFmt = new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' });
+  const numberFmt = new Intl.NumberFormat(locale);
 
   return (
     <div className="logbook-scrim" role="dialog" aria-modal="true" aria-label={t('title')}>
@@ -39,7 +40,7 @@ export default function LogbookPanel({ book, stats, units, locale, onClose, onRe
           </button>
         </header>
 
-        {stats.planes === 0 && stats.cardsTried === 0 ? (
+        {stats.planes === 0 && stats.cardsTried === 0 && stats.gamesPlayed === 0 ? (
           <div className="logbook-empty">
             <p>{t('empty')}</p>
             <p className="dim">{t('emptyHint')}</p>
@@ -52,6 +53,10 @@ export default function LogbookPanel({ book, stats, units, locale, onClose, onRe
             <div><dt>{t('statCountries')}</dt><dd>{stats.countries.length}</dd></div>
             <div><dt>{t('statStreak')}</dt><dd>{stats.streak}</dd></div>
             <div><dt>{t('statCards')}</dt><dd>{stats.cardsPassed}</dd></div>
+            <div>
+              <dt>{t('statGameBest')}</dt>
+              <dd className="small">{numberFmt.format(stats.gameBest)}</dd>
+            </div>
             <div>
               <dt>{t('statHighest')}</dt>
               <dd className="small">{formatAltitude(stats.highestAlt, units, locale)}</dd>
@@ -128,7 +133,7 @@ export default function LogbookPanel({ book, stats, units, locale, onClose, onRe
 
         <footer className="logbook-foot">
           <p className="dim">{t('privacyNote')}</p>
-          {(stats.planes > 0 || stats.cardsTried > 0) && (
+          {(stats.planes > 0 || stats.cardsTried > 0 || stats.gamesPlayed > 0) && (
             <button className="danger" onClick={onReset}>
               {t('reset')}
             </button>

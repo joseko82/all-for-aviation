@@ -87,7 +87,6 @@ ok('recordVisit is idempotent within a day', () => {
   assert.strictEqual(b.days.length, 1);
 });
 
-console.log(`\n${pass} assertions passed`);
 
 // --- phase 3 additions ------------------------------------------------------
 const { recordQuiz } = R('logbook.js');
@@ -114,7 +113,7 @@ ok('an improved retry does update the best', () => {
   b = recordQuiz(b, '747-hump', 3, 3);
   assert.strictEqual(computeStats(b).cardsPassed, 1);
 });
-ok('a v1 logbook migrates without losing sightings', () => {
+ok('a v1 logbook migrates to the current version without losing sightings', () => {
   const { load } = R('logbook.js');
   const store = {};
   global.window = { localStorage: {
@@ -128,11 +127,124 @@ ok('a v1 logbook migrates without losing sightings', () => {
     badges: { first_spot: 1 },
   });
   const migrated = load();
-  assert.strictEqual(migrated.v, 2);
+  assert.strictEqual(migrated.v, 3);
   assert.strictEqual(Object.keys(migrated.sightings).length, 1);
   assert.strictEqual(migrated.sightings.abc.count, 4);
   assert.strictEqual(migrated.badges.first_spot, 1);
   assert.deepStrictEqual(migrated.quizzes, {});
+  assert.deepStrictEqual(migrated.games, { played: 0, best: 0, lastAt: 0 });
   delete global.window;
 });
+// --- game -------------------------------------------------------------------
+const { buildGame, scoreDistance, scoreAircraft, isDistinguishable, ROUNDS_PER_GAME } = R('game.js');
+const { recordGame } = R('logbook.js');
+
+console.log('\nguessing game');
+ok('a game has five rounds: three aircraft, two airports', () => {
+  const rounds = buildGame(12345);
+  assert.strictEqual(rounds.length, ROUNDS_PER_GAME);
+  assert.strictEqual(rounds.filter(r => r.kind === 'aircraft').length, 3);
+  assert.strictEqual(rounds.filter(r => r.kind === 'airport').length, 2);
+});
+ok('every aircraft round offers the correct answer among its options', () => {
+  for (const seed of [1, 7, 99, 4242, 777777]) {
+    for (const r of buildGame(seed).filter(x => x.kind === 'aircraft')) {
+      assert.ok(r.options.some(o => o.code === r.answer.code), 'answer missing from options');
+      const codes = r.options.map(o => o.code);
+      assert.strictEqual(new Set(codes).size, codes.length, 'duplicate option');
+      assert.ok(r.options.length >= 3 && r.options.length <= 4, 'option count ' + r.options.length);
+    }
+  }
+});
+ok('no aircraft round offers two look-alike silhouettes', () => {
+  for (let seed = 1; seed <= 60; seed++) {
+    for (const r of buildGame(seed * 104729).filter(x => x.kind === 'aircraft')) {
+      for (const o of r.options) {
+        if (o.code === r.answer.code) continue;
+        assert.ok(
+          isDistinguishable(o, r.answer),
+          `${o.code} is indistinguishable from ${r.answer.code}`,
+        );
+      }
+    }
+  }
+});
+ok('the two airports in a game are never the same', () => {
+  for (const seed of [1, 7, 99, 4242, 777777]) {
+    const ap = buildGame(seed).filter(r => r.kind === 'airport');
+    assert.notStrictEqual(ap[0].answer.iata, ap[1].answer.iata);
+  }
+});
+ok('the same seed always builds the same game', () => {
+  const a = buildGame(2024).map(r => r.kind === 'airport' ? r.answer.iata : r.answer.code);
+  const b = buildGame(2024).map(r => r.kind === 'airport' ? r.answer.iata : r.answer.code);
+  assert.deepStrictEqual(a, b);
+});
+ok('different seeds usually build different games', () => {
+  const seen = new Set();
+  for (let s = 1; s <= 40; s++) {
+    seen.add(buildGame(s * 7919).map(r => r.kind === 'airport' ? r.answer.iata : r.answer.code).join('|'));
+  }
+  assert.ok(seen.size > 30, 'only ' + seen.size + ' distinct games from 40 seeds');
+});
+
+console.log('\nscoring');
+const ICN_PT = { lat: 37.4691, lon: 126.4510 };
+ok('a bullseye scores the maximum', () => {
+  const r = scoreDistance(ICN_PT, ICN_PT);
+  assert.strictEqual(r.score, 1000);
+  assert.strictEqual(r.correct, true);
+  assert.strictEqual(r.distanceKm, 0);
+});
+ok('score falls off with distance but never goes negative', () => {
+  const near = scoreDistance({ lat: 37.6, lon: 127.0 }, ICN_PT);
+  const mid = scoreDistance({ lat: 35.55, lon: 139.78 }, ICN_PT);   // Tokyo
+  const far = scoreDistance({ lat: 40.64, lon: -73.78 }, ICN_PT);   // New York
+  assert.ok(near.score > mid.score, 'near should beat mid');
+  assert.ok(mid.score > far.score, 'mid should beat far');
+  assert.ok(far.score >= 0, 'never negative');
+  assert.ok(mid.score > 0, 'a same-region guess should still earn points');
+});
+ok('a guess on the right continent still earns something', () => {
+  const shanghai = scoreDistance({ lat: 31.14, lon: 121.8 }, ICN_PT);
+  assert.ok(shanghai.score > 200, 'got ' + shanghai.score);
+});
+ok('aircraft rounds are all-or-nothing', () => {
+  assert.strictEqual(scoreAircraft('B748', 'B748').score, 1000);
+  assert.strictEqual(scoreAircraft('A320', 'B748').score, 0);
+  assert.strictEqual(scoreAircraft('A320', 'B748').correct, false);
+});
+
+console.log('\ngame records');
+ok('only the best game total is kept', () => {
+  let b = { v:3, sightings:{}, days:[], badges:{}, quizzes:{}, games:{ played:0, best:0, lastAt:0 } };
+  b = recordGame(b, 3100);
+  b = recordGame(b, 1200);
+  assert.strictEqual(b.games.played, 2);
+  assert.strictEqual(b.games.best, 3100);
+  assert.strictEqual(computeStats(b).gameBest, 3100);
+  assert.strictEqual(computeStats(b).gamesPlayed, 2);
+});
+ok('a v2 logbook migrates to v3 with an empty game record', () => {
+  const { load } = R('logbook.js');
+  const store = {};
+  global.window = { localStorage: {
+    getItem: (k) => store[k] ?? null,
+    setItem: (k, v) => { store[k] = v; },
+  }};
+  store['afa.logbook.v1'] = JSON.stringify({
+    v: 2,
+    sightings: { abc: { id:'abc', reg:'HL7642', type:'B748', cs:'KAL017', airline:'KAL', first:1, last:1, count:2, maxAlt:38000, maxGs:500 } },
+    days: ['2026-08-19'],
+    badges: { first_spot: 1 },
+    quizzes: { 'wing-lift': { best: 3, total: 3, at: 5 } },
+  });
+  const m = load();
+  assert.strictEqual(m.v, 3);
+  assert.strictEqual(m.quizzes['wing-lift'].best, 3);
+  assert.strictEqual(Object.keys(m.sightings).length, 1);
+  assert.deepStrictEqual(m.games, { played: 0, best: 0, lastAt: 0 });
+  delete global.window;
+});
+
 console.log(`\n${pass} assertions passed in total`);

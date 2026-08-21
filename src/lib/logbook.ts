@@ -38,8 +38,15 @@ export interface QuizResult {
   at: number;
 }
 
+export interface GameRecord {
+  played: number;
+  /** Best five-round total. */
+  best: number;
+  lastAt: number;
+}
+
 export interface Logbook {
-  v: 2;
+  v: 3;
   sightings: Record<string, Sighting>;
   /** Local calendar dates the site was opened, "YYYY-MM-DD", ascending. */
   days: string[];
@@ -47,12 +54,18 @@ export interface Logbook {
   badges: Record<string, number>;
   /** learning card id -> best quiz result. */
   quizzes: Record<string, QuizResult>;
+  /** Guessing-game history. */
+  games: GameRecord;
 }
 
-export const EMPTY: Logbook = { v: 2, sightings: {}, days: [], badges: {}, quizzes: {} };
+const NO_GAMES: GameRecord = { played: 0, best: 0, lastAt: 0 };
+
+export const EMPTY: Logbook = {
+  v: 3, sightings: {}, days: [], badges: {}, quizzes: {}, games: NO_GAMES,
+};
 
 export function emptyLogbook(): Logbook {
-  return { v: 2, sightings: {}, days: [], badges: {}, quizzes: {} };
+  return { v: 3, sightings: {}, days: [], badges: {}, quizzes: {}, games: { ...NO_GAMES } };
 }
 
 /**
@@ -66,11 +79,12 @@ function migrate(raw: unknown): Logbook {
     return emptyLogbook();
   }
   return {
-    v: 2,
+    v: 3,
     sightings: book.sightings ?? {},
     days: Array.isArray(book.days) ? book.days : [],
     badges: book.badges ?? {},
     quizzes: book.quizzes ?? {},
+    games: book.games ?? { ...NO_GAMES },
   };
 }
 
@@ -161,6 +175,19 @@ export function recordQuiz(
   };
 }
 
+/** Record a finished game. Only the best total is kept. */
+export function recordGame(book: Logbook, total: number, now = Date.now()): Logbook {
+  const prev = book.games ?? { played: 0, best: 0, lastAt: 0 };
+  return {
+    ...book,
+    games: {
+      played: prev.played + 1,
+      best: Math.max(prev.best, total),
+      lastAt: now,
+    },
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Derived statistics
 // ---------------------------------------------------------------------------
@@ -185,6 +212,8 @@ export interface Stats {
   cardsPassed: number;
   /** Cards attempted at least once. */
   cardsTried: number;
+  gamesPlayed: number;
+  gameBest: number;
 }
 
 export function computeStats(book: Logbook, now = Date.now()): Stats {
@@ -226,6 +255,8 @@ export function computeStats(book: Logbook, now = Date.now()): Stats {
     quizCorrect,
     cardsPassed,
     cardsTried: quizzes.length,
+    gamesPlayed: book.games?.played ?? 0,
+    gameBest: book.games?.best ?? 0,
     types: [...types].sort(),
     airlines: [...airlines].sort(),
     countries: [...countries].sort(),

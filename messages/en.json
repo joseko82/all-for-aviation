@@ -8,7 +8,8 @@
     "tagline": "Every plane in the sky, right now",
     "compare": "Size Compare",
     "learn": "Learn",
-    "sections": "Sections"
+    "sections": "Sections",
+    "game": "Guess Game"
   },
   "map": {
     "loading": "Looking for aeroplanes…",
@@ -97,7 +98,8 @@
     "reset": "Clear my logbook",
     "resetConfirm": "This erases every plane and badge you have collected. There is no undo. Continue?",
     "locked": "Locked",
-    "statCards": "Cards passed"
+    "statCards": "Cards passed",
+    "statGameBest": "Best game score"
   },
   "badges": {
     "newBadge": "New badge!",
@@ -185,7 +187,19 @@
       "name": "Top of the Class",
       "hint": "Pass every learning card."
     },
-    "andMore": "{count, plural, one {+# more badge} other {+# more badges}}"
+    "andMore": "{count, plural, one {+# more badge} other {+# more badges}}",
+    "game_first": {
+      "name": "Contender",
+      "hint": "Play one round of the guessing game."
+    },
+    "game_captain": {
+      "name": "Captain",
+      "hint": "Score 3,200 or more in one game."
+    },
+    "game_ace": {
+      "name": "Ace",
+      "hint": "Score 4,200 or more in one game."
+    }
   },
   "footer": {
     "notAffiliated": "Not affiliated with any airline or airport. Made for a curious 12-year-old.",
@@ -265,5 +279,38 @@
     "notEnough": "Not enough lift yet — go faster or tilt more",
     "stalled": "Stalled. The air has stopped following the wing.",
     "note": "Simplified on purpose. Real wings differ, but the two rules shown here are real: lift grows with the square of speed, and it collapses past about 15 degrees."
+  },
+  "game": {
+    "title": "Guess the plane, guess the airport",
+    "lede": "Five rounds. Three silhouettes to name, two airports to find on the map.",
+    "rule1": "Aircraft are drawn to true scale — the bus underneath is 11 metres long, so size is a real clue.",
+    "rule2": "For airports, click where you think it is. The closer you are, the more points you score.",
+    "rule3": "1,000 points a round, 5,000 in total. Your best score is saved.",
+    "start": "Start the game",
+    "playAgain": "Play again",
+    "bestSoFar": "Your best so far: {best} points, from {played, plural, one {# game} other {# games}}.",
+    "roundOf": "Round {n} of {total}",
+    "roundN": "Round {n}",
+    "whichAircraft": "Which aircraft is this?",
+    "scaleHint": "Drawn to scale. Count the engines, and compare it with the bus.",
+    "whereIs": "Where is {airport}?",
+    "clickMap": "Click on the map where you think it is.",
+    "answerWas": "It is in {city}, {country}.",
+    "lockIn": "Lock in my guess",
+    "check": "Check my answer",
+    "nextRound": "Next round",
+    "seeScore": "See my score",
+    "gained": "+{points} points",
+    "offBy": "off by {distance}",
+    "spotOn": "spot on",
+    "finished": "Game over",
+    "newBest": "That is a new personal best.",
+    "rank": {
+      "ace": "Ace — you really know your aeroplanes.",
+      "captain": "Captain — very sharp.",
+      "pilot": "Pilot — solid work.",
+      "cadet": "Cadet — keep watching the sky."
+    },
+    "busLabel": "school bus — 11 m"
   }
 }

@@ -982,3 +982,82 @@ button { font-family: inherit; }
 
 .toast.more { padding: 8px 16px; }
 .toast.more .toast-text span { font-size: 13px; color: var(--text-dim); font-weight: 500; }
+
+/* ---------------------------------------------------------------------------
+   Guessing game (phase 4)
+   --------------------------------------------------------------------------- */
+
+.game-rules {
+  margin: 0 0 22px; padding: 16px 16px 16px 34px;
+  border-radius: 12px; background: var(--bg-panel); border: 1px solid var(--border);
+  display: grid; gap: 10px;
+}
+.game-rules li { line-height: 1.6; font-size: 14px; color: var(--text-dim); }
+
+.game-best { margin: 0 0 18px; font-size: 14px; color: var(--accent); }
+
+.game-start {
+  padding: 13px 22px; border-radius: 12px;
+  border: 1px solid var(--accent); background: var(--accent);
+  color: #04121d; font-size: 15px; font-weight: 700; cursor: pointer;
+}
+.game-start:disabled { opacity: 0.4; cursor: default; }
+
+.game-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-block-end: 10px; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+}
+.game-running { font-size: 18px; font-weight: 700; color: var(--accent); letter-spacing: 0; }
+
+.game-stage {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: #0c1322; padding: 14px; margin-block-end: 16px;
+}
+.game-silhouette { inline-size: 100%; block-size: auto; max-block-size: 46vh; display: block; }
+.game-silhouette .mystery path { fill: #27384f; stroke: #7d96bd; stroke-width: 0.35; }
+.game-silhouette .scale-bus { fill: var(--accent-warm); opacity: 0.85; }
+.game-silhouette .scale-label { fill: var(--text-dim); font-size: 2.4px; font-family: var(--font); }
+
+.game-options {
+  list-style: none; margin: 0 0 18px; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px;
+}
+.game-options button {
+  inline-size: 100%; padding: 13px 14px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg-panel);
+  color: var(--text); font-size: 14px; cursor: pointer; text-align: start;
+}
+.game-options button:hover:not(:disabled) { border-color: var(--accent); }
+.game-options button.chosen { border-color: var(--accent); background: var(--bg-panel-2); }
+.game-options button.right { border-color: #3f8f68; background: rgba(63, 143, 104, 0.2); }
+.game-options button.wrong { border-color: #8f3f3f; background: rgba(143, 63, 63, 0.2); }
+.game-options button.muted { opacity: 0.45; }
+
+.guess-map {
+  block-size: min(56vh, 480px);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-block-end: 16px;
+}
+
+.game-actions { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.game-feedback { margin: 0; font-size: 15px; font-weight: 600; color: var(--text-dim); }
+.game-feedback.good { color: #5ad2a0; }
+
+.game-total { margin: 0; font-size: 56px; font-weight: 800; letter-spacing: -0.03em; }
+.game-rank { margin: 4px 0 6px; font-size: 17px; color: var(--accent); }
+.game-newbest { margin: 0 0 18px; font-size: 14px; color: var(--accent-warm); font-weight: 650; }
+
+.game-breakdown {
+  list-style: none; margin: 0 0 22px; padding: 0;
+  border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+.game-breakdown li {
+  display: flex; justify-content: space-between;
+  padding: 11px 14px; background: var(--bg-panel);
+  border-block-end: 1px solid var(--border); font-size: 14px;
+}
+.game-breakdown li:last-child { border-block-end: none; }
+.game-breakdown li span:first-child { color: var(--text-dim); }

@@ -16,6 +16,7 @@ import {
   computeStats,
   emptyLogbook,
   load as loadLogbook,
+  recordGame,
   recordQuiz,
   recordSighting,
   recordVisit,
@@ -33,6 +34,7 @@ interface LogbookContextValue {
   ready: boolean;
   spot: (aircraft: Aircraft) => void;
   submitQuiz: (cardId: string, correct: number, total: number) => void;
+  recordGameResult: (total: number) => void;
   reset: () => void;
   openPanel: () => void;
 }
@@ -84,6 +86,10 @@ export default function LogbookProvider({ children }: { children: React.ReactNod
     setBook((prev) => recordQuiz(prev, cardId, correct, total));
   }, []);
 
+  const recordGameResult = useCallback((total: number) => {
+    setBook((prev) => recordGame(prev, total));
+  }, []);
+
   const reset = useCallback(() => {
     const fresh = recordVisit(emptyLogbook());
     setBook(fresh);
@@ -94,8 +100,8 @@ export default function LogbookProvider({ children }: { children: React.ReactNod
   const openPanel = useCallback(() => setPanelOpen(true), []);
 
   const value = useMemo<LogbookContextValue>(
-    () => ({ book, stats, ready, spot, submitQuiz, reset, openPanel }),
-    [book, stats, ready, spot, submitQuiz, reset, openPanel],
+    () => ({ book, stats, ready, spot, submitQuiz, recordGameResult, reset, openPanel }),
+    [book, stats, ready, spot, submitQuiz, recordGameResult, reset, openPanel],
   );
 
   return (

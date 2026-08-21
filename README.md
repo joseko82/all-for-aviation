@@ -47,6 +47,9 @@ That's it. You never need to run a command in a terminal.
 | `src/components/LiftLab.tsx` | The interactive wing on the "how does a wing lift" card. |
 | `src/lib/aircraftSpecs.ts`, `silhouette.ts` | Published dimensions, and the drawings generated from them. |
 | `content/learn/en.json` | **Every word of the learning articles and quizzes.** |
+| `src/components/GameBoard.tsx`, `GuessMap.tsx` | The five-round guessing game. |
+| `src/lib/game.ts` | Round building, distractor rules and distance scoring. |
+| `src/lib/airports.ts` | 142 well-known airports (OurAirports, public domain). |
 | `tools/unit-tests.cjs` | Pure-logic tests. Run with `npm run test:unit`. |
 | `src/lib/` | Pure logic: geometry, unit formatting, aircraft classification, hub list. |
 | `messages/en.json` | **Every word shown on screen.** Adding Korean means adding `messages/ko.json`. |
@@ -77,7 +80,12 @@ That's it. You never need to run a command in a terminal.
 - Backup positions: [OpenSky Network](https://opensky-network.org)
 - Route database: adsb.lol standing data
 - Airline names: hand-curated in `src/lib/airlines.ts` (no licensed database)
+- Airport locations: [OurAirports](https://ourairports.com/data/) (public domain)
 - Map tiles: [OpenFreeMap](https://openfreemap.org), © OpenMapTiles, © OpenStreetMap contributors
+
+The guessing game uses **no photographs at all**. Every aircraft picture on the
+site is drawn in the browser from published dimensions, which sidesteps the
+licensing problem that makes photo-based quizzes expensive to build honestly.
 
 Not affiliated with any airline or airport.
 

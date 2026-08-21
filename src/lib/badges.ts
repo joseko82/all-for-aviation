@@ -186,7 +186,31 @@ const LEARNING_BADGES: BadgeDef[] = [
   },
 ];
 
-export const BADGES: BadgeDef[] = [...SPOTTING_BADGES, ...LEARNING_BADGES];
+/** Guessing-game badges. */
+const GAME_BADGES: BadgeDef[] = [
+  {
+    id: 'game_first',
+    symbol: '◉',
+    tier: 'bronze',
+    earned: (s) => s.gamesPlayed >= 1,
+  },
+  {
+    id: 'game_captain',
+    symbol: '⌁',
+    tier: 'silver',
+    earned: (s) => s.gameBest >= 3200,
+    progress: (s) => ratio(s.gameBest, 3200),
+  },
+  {
+    id: 'game_ace',
+    symbol: '✧',
+    tier: 'gold',
+    earned: (s) => s.gameBest >= 4200,
+    progress: (s) => ratio(s.gameBest, 4200),
+  },
+];
+
+export const BADGES: BadgeDef[] = [...SPOTTING_BADGES, ...LEARNING_BADGES, ...GAME_BADGES];
 
 export const BADGE_IDS = BADGES.map((b) => b.id);
 
