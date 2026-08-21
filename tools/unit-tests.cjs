@@ -92,7 +92,7 @@ ok('recordVisit is idempotent within a day', () => {
 const { recordQuiz } = R('logbook.js');
 console.log('\nquiz accounting');
 ok('a perfect score marks the card passed', () => {
-  let b = { v:2, sightings:{}, days:[], badges:{}, quizzes:{} };
+  let b = { v:4, sightings:{}, days:[], badges:{}, quizzes:{} };
   b = recordQuiz(b, 'wing-lift', 3, 3);
   const s = computeStats(b);
   assert.strictEqual(s.cardsPassed, 1);
@@ -100,14 +100,14 @@ ok('a perfect score marks the card passed', () => {
   assert.strictEqual(s.cardsTried, 1);
 });
 ok('a worse retry never lowers the recorded best', () => {
-  let b = { v:2, sightings:{}, days:[], badges:{}, quizzes:{} };
+  let b = { v:4, sightings:{}, days:[], badges:{}, quizzes:{} };
   b = recordQuiz(b, 'wing-lift', 3, 3);
   b = recordQuiz(b, 'wing-lift', 1, 3);
   assert.strictEqual(b.quizzes['wing-lift'].best, 3);
   assert.strictEqual(computeStats(b).cardsPassed, 1);
 });
 ok('an improved retry does update the best', () => {
-  let b = { v:2, sightings:{}, days:[], badges:{}, quizzes:{} };
+  let b = { v:4, sightings:{}, days:[], badges:{}, quizzes:{} };
   b = recordQuiz(b, '747-hump', 1, 3);
   assert.strictEqual(computeStats(b).cardsPassed, 0);
   b = recordQuiz(b, '747-hump', 3, 3);
@@ -127,7 +127,7 @@ ok('a v1 logbook migrates to the current version without losing sightings', () =
     badges: { first_spot: 1 },
   });
   const migrated = load();
-  assert.strictEqual(migrated.v, 3);
+  assert.strictEqual(migrated.v, 4);
   assert.strictEqual(Object.keys(migrated.sightings).length, 1);
   assert.strictEqual(migrated.sightings.abc.count, 4);
   assert.strictEqual(migrated.badges.first_spot, 1);
@@ -217,7 +217,7 @@ ok('aircraft rounds are all-or-nothing', () => {
 
 console.log('\ngame records');
 ok('only the best game total is kept', () => {
-  let b = { v:3, sightings:{}, days:[], badges:{}, quizzes:{}, games:{ played:0, best:0, lastAt:0 } };
+  let b = { v:4, sightings:{}, days:[], badges:{}, quizzes:{}, games:{ played:0, best:0, lastAt:0 } };
   b = recordGame(b, 3100);
   b = recordGame(b, 1200);
   assert.strictEqual(b.games.played, 2);
@@ -225,7 +225,7 @@ ok('only the best game total is kept', () => {
   assert.strictEqual(computeStats(b).gameBest, 3100);
   assert.strictEqual(computeStats(b).gamesPlayed, 2);
 });
-ok('a v2 logbook migrates to v3 with an empty game record', () => {
+ok('a v2 logbook migrates forward with an empty game record', () => {
   const { load } = R('logbook.js');
   const store = {};
   global.window = { localStorage: {
@@ -240,7 +240,7 @@ ok('a v2 logbook migrates to v3 with an empty game record', () => {
     quizzes: { 'wing-lift': { best: 3, total: 3, at: 5 } },
   });
   const m = load();
-  assert.strictEqual(m.v, 3);
+  assert.strictEqual(m.v, 4);
   assert.strictEqual(m.quizzes['wing-lift'].best, 3);
   assert.strictEqual(Object.keys(m.sightings).length, 1);
   assert.deepStrictEqual(m.games, { played: 0, best: 0, lastAt: 0 });
@@ -316,6 +316,47 @@ ok('the day number advances by exactly one per local day', () => {
 });
 ok('CYCLE_DAYS matches the pool size', () => {
   assert.strictEqual(CYCLE_DAYS, MEMES.length);
+});
+
+
+
+// --- the one-time welcome ---------------------------------------------------
+const { markWelcomed, emptyLogbook } = R('logbook.js');
+
+console.log('\none-time welcome');
+ok('a brand new logbook has not been welcomed', () => {
+  assert.strictEqual(emptyLogbook().welcomedAt, undefined);
+});
+ok('marking it is idempotent — the first timestamp wins', () => {
+  let b = emptyLogbook();
+  b = markWelcomed(b, 1000);
+  b = markWelcomed(b, 2000);
+  assert.strictEqual(b.welcomedAt, 1000);
+});
+ok('a v3 logbook with sightings is treated as already welcomed', () => {
+  const { load } = R('logbook.js');
+  const store = {};
+  global.window = { localStorage: { getItem: k => store[k] ?? null, setItem: (k, v) => { store[k] = v; } } };
+  store['afa.logbook.v1'] = JSON.stringify({
+    v: 3,
+    sightings: { abc: { id:'abc', reg:'HL7642', type:'B748', cs:'KAL017', airline:'KAL', first:1, last:1, count:9, maxAlt:38000, maxGs:500 } },
+    days: ['2026-08-19'], badges: { first_spot: 1 }, quizzes: {}, games: { played: 2, best: 3100, lastAt: 5 },
+  });
+  const m = load();
+  assert.strictEqual(m.v, 4);
+  assert.ok(m.welcomedAt, 'an existing collector must not be shown the welcome');
+  assert.strictEqual(m.games.best, 3100);
+  assert.strictEqual(Object.keys(m.sightings).length, 1);
+  delete global.window;
+});
+ok('an empty v3 logbook still gets the welcome', () => {
+  const { load } = R('logbook.js');
+  const store = {};
+  global.window = { localStorage: { getItem: k => store[k] ?? null, setItem: (k, v) => { store[k] = v; } } };
+  store['afa.logbook.v1'] = JSON.stringify({ v: 3, sightings: {}, days: [], badges: {}, quizzes: {}, games: { played: 0, best: 0, lastAt: 0 } });
+  const m = load();
+  assert.strictEqual(m.welcomedAt, undefined);
+  delete global.window;
 });
 
 console.log(`\n${pass} assertions passed in total`);

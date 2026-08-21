@@ -39,6 +39,15 @@ export default function SiteNav({ children }: { children?: React.ReactNode }) {
         })}
       </nav>
 
+      <Link
+        href={`/${locale}/guide`}
+        className={`guide-btn${pathname.startsWith(`/${locale}/guide`) ? ' active' : ''}`}
+        aria-current={pathname.startsWith(`/${locale}/guide`) ? 'page' : undefined}
+      >
+        <span aria-hidden="true">?</span>
+        {t('nav.guide')}
+      </Link>
+
       <button className="logbook-btn" onClick={openPanel} aria-haspopup="dialog">
         {t('logbook.open')}
         {stats.planes + stats.cardsTried > 0 && (

@@ -389,5 +389,10 @@
     },
     "curationNote": "These are hand-picked, not searched for automatically. Nothing about crashes, emergencies or scary landings gets in — that whole kind of \"funny plane video\" is left out on purpose.",
     "creditNote": "Every video belongs to the airline or channel credited on it. This site only links to them."
+  },
+  "welcome": {
+    "start": "Show me the planes",
+    "readMore": "Read the whole guide",
+    "onceOnly": "You will only see this once. The guide is always up there if you need it."
   }
 }

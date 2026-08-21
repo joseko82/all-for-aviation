@@ -46,7 +46,7 @@ export interface GameRecord {
 }
 
 export interface Logbook {
-  v: 3;
+  v: 4;
   sightings: Record<string, Sighting>;
   /** Local calendar dates the site was opened, "YYYY-MM-DD", ascending. */
   days: string[];
@@ -56,16 +56,23 @@ export interface Logbook {
   quizzes: Record<string, QuizResult>;
   /** Guessing-game history. */
   games: GameRecord;
+  /**
+   * When the one-time welcome was shown. Undefined means it never has been.
+   *
+   * Stored rather than inferred from an empty logbook so that opening the site
+   * twice on the first day does not show it twice.
+   */
+  welcomedAt?: number;
 }
 
 const NO_GAMES: GameRecord = { played: 0, best: 0, lastAt: 0 };
 
 export const EMPTY: Logbook = {
-  v: 3, sightings: {}, days: [], badges: {}, quizzes: {}, games: NO_GAMES,
+  v: 4, sightings: {}, days: [], badges: {}, quizzes: {}, games: NO_GAMES,
 };
 
 export function emptyLogbook(): Logbook {
-  return { v: 3, sightings: {}, days: [], badges: {}, quizzes: {}, games: { ...NO_GAMES } };
+  return { v: 4, sightings: {}, days: [], badges: {}, quizzes: {}, games: { ...NO_GAMES } };
 }
 
 /**
@@ -79,12 +86,16 @@ function migrate(raw: unknown): Logbook {
     return emptyLogbook();
   }
   return {
-    v: 3,
+    v: 4,
     sightings: book.sightings ?? {},
     days: Array.isArray(book.days) ? book.days : [],
     badges: book.badges ?? {},
     quizzes: book.quizzes ?? {},
     games: book.games ?? { ...NO_GAMES },
+    // An existing logbook means the site has been used, so the welcome has had
+    // its moment — never show it to someone mid-collection.
+    welcomedAt:
+      book.welcomedAt ?? (Object.keys(book.sightings ?? {}).length > 0 ? 1 : undefined),
   };
 }
 
@@ -173,6 +184,12 @@ export function recordQuiz(
     ...book,
     quizzes: { ...book.quizzes, [cardId]: { best: correct, total, at: now } },
   };
+}
+
+/** Mark the one-time welcome as shown. */
+export function markWelcomed(book: Logbook, now = Date.now()): Logbook {
+  if (book.welcomedAt) return book;
+  return { ...book, welcomedAt: now };
 }
 
 /** Record a finished game. Only the best total is kept. */

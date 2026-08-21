@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 
 import AircraftPanel from './AircraftPanel';
 import SiteNav from './SiteNav';
+import WelcomeOverlay from './WelcomeOverlay';
 import { useLogbook } from './LogbookProvider';
 import { iconId, registerPlaneIcons, SELECTED_ICON } from './planeIcons';
 import { pickCurrentLeg } from '@/lib/route';
@@ -78,7 +79,7 @@ export default function LiveMap() {
   const [searching, setSearching] = useState(false);
   const [searchError, setSearchError] = useState(false);
 
-  const { book, spot, ready: bookReady } = useLogbook();
+  const { book, spot, ready: bookReady, needsWelcome, dismissWelcome } = useLogbook();
 
   // -------------------------------------------------------------------------
   // Selection
@@ -374,6 +375,16 @@ export default function LiveMap() {
       if (moveTimer) clearTimeout(moveTimer);
       map.remove();
       mapRef.current = null;
+      // The map writes its position into the URL hash. Without this, that hash
+      // rides along to /guide, /learn and everywhere else, which looks broken
+      // in a shared link.
+      if (typeof window !== 'undefined' && window.location.hash) {
+        window.history.replaceState(
+          null,
+          '',
+          window.location.pathname + window.location.search,
+        );
+      }
     };
   }, [select]);
 
@@ -642,6 +653,8 @@ export default function LiveMap() {
         )}
 
       </div>
+
+      {needsWelcome && <WelcomeOverlay onStart={dismissWelcome} />}
 
       <footer className="footer">
         <span>{t('map.attribution')}</span>

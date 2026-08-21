@@ -23,7 +23,9 @@ export const SECTIONS: Section[] = [
   { key: 'airports', path: '/airports', inNav: true, inGuide: true },
   { key: 'fun', path: '/fun', inNav: true, inGuide: true },
   { key: 'game', path: '/game', inNav: true, inGuide: true },
-  { key: 'guide', path: '/guide', inNav: true, inGuide: false },
+  // Reachable from the header's utility group rather than the section list —
+  // help sits beside the logbook, not beside the content.
+  { key: 'guide', path: '/guide', inNav: false, inGuide: false },
 ];
 
 export function sectionHref(locale: string, s: Section): string {
