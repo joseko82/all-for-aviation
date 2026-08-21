@@ -1144,8 +1144,7 @@ button { font-family: inherit; }
   padding: 3px 7px; border-radius: 5px;
   background: var(--bg-panel-2); color: var(--text-dim);
 }
-.video-kind.cockpit { color: var(--accent); }
-.video-kind.historic { color: var(--accent-warm); }
+.video-card.featured .video-kind { color: var(--accent); }
 .video-title { margin: 8px 0 4px; font-size: 14px; line-height: 1.45; font-weight: 600; }
 .video-channel { margin: 0; font-size: 12px; color: var(--text-dim); }
 .video-channel a { color: var(--accent); }
@@ -1319,3 +1318,39 @@ button { font-family: inherit; }
   gap: 10px;
 }
 .guide-note p { margin: 0; font-size: 14px; line-height: 1.65; }
+
+/* ---------------------------------------------------------------------------
+   Daily video (phase 7)
+   --------------------------------------------------------------------------- */
+
+.fun-date {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-warm);
+}
+
+.fun-loading { color: var(--text-dim); font-size: 15px; }
+
+.video-card.featured {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.video-card.featured .video-title { font-size: 18px; line-height: 1.4; }
+.video-card.featured .video-meta { padding: 16px 18px 18px; }
+
+.fun-earlier { margin-block-start: 34px; }
+.fun-earlier h3 {
+  margin: 0 0 12px;
+  padding-block-end: 8px;
+  border-block-end: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* The grid is now a list of cards rather than the card itself. */
+.video-grid > li { list-style: none; }

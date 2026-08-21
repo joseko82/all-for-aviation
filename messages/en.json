@@ -11,7 +11,8 @@
     "sections": "Sections",
     "game": "Guess Game",
     "airports": "Airports",
-    "guide": "Guide"
+    "guide": "Guide",
+    "fun": "Daily Laugh"
   },
   "map": {
     "loading": "Looking for aeroplanes…",
@@ -321,7 +322,6 @@
     "lede": "Real cockpit and landing videos from the airports on the map. Pick an airport, then press play.",
     "pick": "Pick an airport",
     "nowShowing": "{city} — {iata} / {icao}",
-    "play": "Play: {title}",
     "openOnYouTube": "open on YouTube",
     "kind": {
       "cockpit": "Cockpit view",
@@ -330,8 +330,7 @@
     },
     "privacyNote": "Pressing play is what loads the YouTube player, so until you do there is no player and no YouTube cookie on this page. The still picture on each card is fetched from YouTube's image server. If a video will not play here, use the \"open on YouTube\" link underneath it.",
     "creditNote": "All videos belong to the channels credited. This site only links to them.",
-    "backToMap": "Back to the live map",
-    "notPlaying": "Not playing? Some channels block videos from playing on other sites —"
+    "backToMap": "Back to the live map"
   },
   "guide": {
     "dedicationLead": "To my beloved son,",
@@ -349,14 +348,16 @@
       "compare": "Two aircraft drawn at exactly the same scale, one on top of the other. There are {aircraft} to choose from.",
       "learn": "{cards} short reads. How a wing lifts 300 tonnes, why the 747 has a hump, why Seoul to New York flies over the Arctic.",
       "airports": "Landings filmed from real cockpits — {videos} videos across {videoAirports} airports.",
-      "game": "{rounds} rounds, {topScore, number} points. Name aircraft from their shadow, and find airports on the map."
+      "game": "{rounds} rounds, {topScore, number} points. Name aircraft from their shadow, and find airports on the map.",
+      "fun": "A different aviation video every day — safety-video parodies, control tower comedy, cartoons."
     },
     "tip": {
       "map": "Type something like KAL017 in the search box to find one plane. It is KAL017 and not KE017 for a reason — there is a card about it in Learn. There are {hubs} airport shortcuts along the top.",
       "compare": "Try the A380 against the ATR 72-600 and see what happens.",
       "learn": "Each one ends with three questions. Get all three and the card is marked passed. Getting it wrong costs nothing — only your best score is kept.",
       "airports": "Look for Kai Tak, the Hong Kong airport that closed in 1998, where pilots turned hard at a painted checkerboard on a hillside.",
-      "game": "On the airport rounds you score for being close, not just for being right. A rough guess always beats no guess."
+      "game": "On the airport rounds you score for being close, not just for being right. A rough guess always beats no guess.",
+      "fun": "It changes at midnight, and it will not repeat a clip until every one has had its turn."
     },
     "logbookTitle": "Logbook — your collection",
     "logbookBody": "Press Logbook at the top right. Every aeroplane you have tapped is saved there, along with how many types you have seen, how many airlines, and how many days in a row you have visited. There are {badges} badges in total.",
@@ -368,5 +369,25 @@
     "privacy": "Your collection is saved only in this browser on this device. There is no account and nothing is sent anywhere. The other side of that: clearing your browsing data erases it, and it will not follow you to another device.",
     "quietSky": "Late at night the sky is quiet and there is not much to see. If the map looks empty, zoom in or press one of the airport buttons along the top. Korean skies are busiest in the evening.",
     "freshness": "This page counts the badges, cards, aircraft and videos straight from the site itself, so the numbers here are always the real ones."
+  },
+  "video": {
+    "play": "Play: {title}",
+    "openOnYouTube": "open on YouTube",
+    "notPlaying": "Not playing? Some channels block videos from playing on other sites —"
+  },
+  "fun": {
+    "title": "One aviation video a day",
+    "lede": "A different clip every day, and none of them repeats until all {days} have had their turn.",
+    "loading": "Working out what day it is…",
+    "earlierTitle": "The last few days",
+    "kind": {
+      "safety-parody": "Safety video, but funny",
+      "atc-humour": "Control tower comedy",
+      "animation": "Animation",
+      "advert": "Advert",
+      "cabin-crew": "Cabin crew"
+    },
+    "curationNote": "These are hand-picked, not searched for automatically. Nothing about crashes, emergencies or scary landings gets in — that whole kind of \"funny plane video\" is left out on purpose.",
+    "creditNote": "Every video belongs to the airline or channel credited on it. This site only links to them."
   }
 }

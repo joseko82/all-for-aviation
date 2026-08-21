@@ -50,6 +50,10 @@ That's it. You never need to run a command in a terminal.
 | `src/components/GameBoard.tsx`, `GuessMap.tsx` | The five-round guessing game. |
 | `src/lib/game.ts` | Round building, distractor rules and distance scoring. |
 | `src/lib/airports.ts` | 142 well-known airports (OurAirports, public domain). |
+| `src/lib/memes.ts` | The daily video pool and the rotation that never repeats within a cycle. |
+| `src/lib/sections.ts` | **The one list of sections.** The header nav and the in-site guide both read it, so adding a section shows up in both without touching either. |
+| `src/components/Guide.tsx` | The handbook, living inside the site. Counts are read from the feature modules so they cannot go stale. |
+| `src/components/VideoCard.tsx` | Click-to-play YouTube card, shared by Airports and Daily Laugh. |
 | `tools/unit-tests.cjs` | Pure-logic tests. Run with `npm run test:unit`. |
 | `src/lib/` | Pure logic: geometry, unit formatting, aircraft classification, hub list. |
 | `messages/en.json` | **Every word shown on screen.** Adding Korean means adding `messages/ko.json`. |
@@ -61,6 +65,9 @@ That's it. You never need to run a command in a terminal.
   cached response serve every visitor instead of one request per person.
 - **Military aircraft are always filtered out**, and by default so is anything
   that is not an airliner. This is a site about passenger jets.
+- **Videos are hand-picked, never searched.** Both video sections use fixed
+  lists of ids that a person checked. Nothing about crashes, emergencies or
+  "scary landing" content is included — a live feed could not promise that.
 - **No accounts, no login, no tracking.** The logbook lives in `localStorage`
   on the one device that made it. Nothing personal is stored on any server,
   which is both the right call for a site aimed at a child and the reason this

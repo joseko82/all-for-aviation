@@ -7,7 +7,7 @@
  * `nav.<key>` and `guide.section.<key>`.
  */
 export interface Section {
-  key: 'map' | 'compare' | 'learn' | 'airports' | 'game' | 'guide';
+  key: 'map' | 'compare' | 'learn' | 'airports' | 'fun' | 'game' | 'guide';
   /** Path after the locale prefix. Empty string is the map. */
   path: string;
   /** Shown in the header nav. */
@@ -21,6 +21,7 @@ export const SECTIONS: Section[] = [
   { key: 'compare', path: '/compare', inNav: true, inGuide: true },
   { key: 'learn', path: '/learn', inNav: true, inGuide: true },
   { key: 'airports', path: '/airports', inNav: true, inGuide: true },
+  { key: 'fun', path: '/fun', inNav: true, inGuide: true },
   { key: 'game', path: '/game', inNav: true, inGuide: true },
   { key: 'guide', path: '/guide', inNav: true, inGuide: false },
 ];

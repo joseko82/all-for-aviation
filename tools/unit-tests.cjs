@@ -247,4 +247,75 @@ ok('a v2 logbook migrates to v3 with an empty game record', () => {
   delete global.window;
 });
 
+
+
+// --- daily video rotation ---------------------------------------------------
+const { MEMES, memeForDay, recentMemes, dayNumber, CYCLE_DAYS } = R('memes.js');
+
+console.log('\ndaily video rotation');
+ok('the pool has no duplicate video ids', () => {
+  const ids = MEMES.map(m => m.id);
+  assert.strictEqual(new Set(ids).size, ids.length);
+  for (const id of ids) assert.strictEqual(id.length, 11, 'bad id: ' + id);
+});
+ok('the same day always gives the same video', () => {
+  for (const d of [0, 1, 999, 20321, -5]) {
+    assert.strictEqual(memeForDay(d).id, memeForDay(d).id);
+  }
+});
+ok('consecutive days give different videos', () => {
+  let same = 0;
+  for (let d = 20000; d < 20200; d++) {
+    if (memeForDay(d).id === memeForDay(d + 1).id) same++;
+  }
+  assert.strictEqual(same, 0, same + ' days repeated the previous day');
+});
+ok('nothing repeats until the whole pool has been shown', () => {
+  const n = MEMES.length;
+  for (const start of [0, n, 5 * n, 137 * n]) {
+    const seen = new Set();
+    for (let d = start; d < start + n; d++) seen.add(memeForDay(d).id);
+    assert.strictEqual(seen.size, n, 'cycle starting ' + start + ' showed only ' + seen.size);
+  }
+});
+ok('each cycle uses a different order', () => {
+  const n = MEMES.length;
+  const orderOf = (cycle) =>
+    Array.from({ length: n }, (_, i) => memeForDay(cycle * n + i).id).join(',');
+  assert.notStrictEqual(orderOf(0), orderOf(1));
+  assert.notStrictEqual(orderOf(1), orderOf(2));
+});
+ok('every video is shown equally often over many cycles', () => {
+  const n = MEMES.length;
+  const tally = {};
+  for (let d = 0; d < n * 40; d++) {
+    const id = memeForDay(d).id;
+    tally[id] = (tally[id] || 0) + 1;
+  }
+  assert.strictEqual(Object.keys(tally).length, n);
+  for (const [id, count] of Object.entries(tally)) {
+    assert.strictEqual(count, 40, id + ' appeared ' + count + ' times, expected 40');
+  }
+});
+ok('the earlier strip shows the previous days, newest first', () => {
+  const d = 20321;
+  const earlier = recentMemes(d, 3);
+  assert.strictEqual(earlier.length, 3);
+  assert.strictEqual(earlier[0].id, memeForDay(d - 1).id);
+  assert.strictEqual(earlier[1].id, memeForDay(d - 2).id);
+  assert.strictEqual(earlier[2].id, memeForDay(d - 3).id);
+  assert.ok(!earlier.some(m => m.id === memeForDay(d).id), 'today leaked into the earlier strip');
+});
+ok('the day number advances by exactly one per local day', () => {
+  const noon = new Date(2026, 7, 21, 12, 0, 0);
+  const nextNoon = new Date(2026, 7, 22, 12, 0, 0);
+  assert.strictEqual(dayNumber(nextNoon) - dayNumber(noon), 1);
+  const justBefore = new Date(2026, 7, 21, 23, 59, 0);
+  const justAfter = new Date(2026, 7, 22, 0, 1, 0);
+  assert.strictEqual(dayNumber(justAfter) - dayNumber(justBefore), 1, 'should tick over at local midnight');
+});
+ok('CYCLE_DAYS matches the pool size', () => {
+  assert.strictEqual(CYCLE_DAYS, MEMES.length);
+});
+
 console.log(`\n${pass} assertions passed in total`);
