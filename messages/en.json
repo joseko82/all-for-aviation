@@ -10,7 +10,8 @@
     "learn": "Learn",
     "sections": "Sections",
     "game": "Guess Game",
-    "airports": "Airports"
+    "airports": "Airports",
+    "guide": "Guide"
   },
   "map": {
     "loading": "Looking for aeroplanes…",
@@ -331,5 +332,41 @@
     "creditNote": "All videos belong to the channels credited. This site only links to them.",
     "backToMap": "Back to the live map",
     "notPlaying": "Not playing? Some channels block videos from playing on other sites —"
+  },
+  "guide": {
+    "dedicationLead": "To my beloved son,",
+    "dedicationName": "Geon",
+    "dedicationTail": "Dad built this for you.",
+    "title": "How to use this site",
+    "lede": "Real airliners, in the sky, right now. This takes two minutes to read, and it updates itself whenever the site gets something new.",
+    "startTitle": "Your first three minutes",
+    "step1": "You start on a world map. Press the ICN Seoul button in the row along the top.",
+    "step2": "Tap any aeroplane. Its flight number, aircraft type and where it is going appear on the right.",
+    "step3": "That tap just unlocked your first badge. You are already collecting.",
+    "sectionsTitle": "The five sections",
+    "section": {
+      "map": "Real aeroplanes flying right now. The colour tells you the height — red means it just took off or is landing, blue means it is cruising high.",
+      "compare": "Two aircraft drawn at exactly the same scale, one on top of the other. There are {aircraft} to choose from.",
+      "learn": "{cards} short reads. How a wing lifts 300 tonnes, why the 747 has a hump, why Seoul to New York flies over the Arctic.",
+      "airports": "Landings filmed from real cockpits — {videos} videos across {videoAirports} airports.",
+      "game": "{rounds} rounds, {topScore, number} points. Name aircraft from their shadow, and find airports on the map."
+    },
+    "tip": {
+      "map": "Type something like KAL017 in the search box to find one plane. It is KAL017 and not KE017 for a reason — there is a card about it in Learn. There are {hubs} airport shortcuts along the top.",
+      "compare": "Try the A380 against the ATR 72-600 and see what happens.",
+      "learn": "Each one ends with three questions. Get all three and the card is marked passed. Getting it wrong costs nothing — only your best score is kept.",
+      "airports": "Look for Kai Tak, the Hong Kong airport that closed in 1998, where pilots turned hard at a painted checkerboard on a hillside.",
+      "game": "On the airport rounds you score for being close, not just for being right. A rough guess always beats no guess."
+    },
+    "logbookTitle": "Logbook — your collection",
+    "logbookBody": "Press Logbook at the top right. Every aeroplane you have tapped is saved there, along with how many types you have seen, how many airlines, and how many days in a row you have visited. There are {badges} badges in total.",
+    "yourProgress": "So far: {planes, plural, =0 {no planes yet} one {# plane} other {# planes}} spotted, {badges} of {total} badges earned.",
+    "badgeTip1": "The hardest one is Superjumbo — you have to find an A380 in the sky yourself and tap it.",
+    "badgeTip2": "Busy Day opens when you spot five different airlines in one day. Incheon in the evening is the easy way.",
+    "badgeTip3": "Week of Watching needs seven days in a row. You only break the run by missing a whole day, so do not panic about it.",
+    "knowTitle": "Worth knowing",
+    "privacy": "Your collection is saved only in this browser on this device. There is no account and nothing is sent anywhere. The other side of that: clearing your browsing data erases it, and it will not follow you to another device.",
+    "quietSky": "Late at night the sky is quiet and there is not much to see. If the map looks empty, zoom in or press one of the airport buttons along the top. Korean skies are busiest in the evening.",
+    "freshness": "This page counts the badges, cards, aircraft and videos straight from the site itself, so the numbers here are always the real ones."
   }
 }

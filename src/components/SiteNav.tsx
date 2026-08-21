@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useLogbook } from './LogbookProvider';
+import { SECTIONS, sectionHref, isActive } from '@/lib/sections';
 
 /** Shared header: brand, section links, and the logbook button. */
 export default function SiteNav({ children }: { children?: React.ReactNode }) {
@@ -12,29 +13,7 @@ export default function SiteNav({ children }: { children?: React.ReactNode }) {
   const pathname = usePathname();
   const { stats, openPanel } = useLogbook();
 
-  const sections = [
-    { href: `/${locale}`, label: t('nav.map'), match: (p: string) => p === `/${locale}` },
-    {
-      href: `/${locale}/compare`,
-      label: t('nav.compare'),
-      match: (p: string) => p.startsWith(`/${locale}/compare`),
-    },
-    {
-      href: `/${locale}/learn`,
-      label: t('nav.learn'),
-      match: (p: string) => p.startsWith(`/${locale}/learn`),
-    },
-    {
-      href: `/${locale}/airports`,
-      label: t('nav.airports'),
-      match: (p: string) => p.startsWith(`/${locale}/airports`),
-    },
-    {
-      href: `/${locale}/game`,
-      label: t('nav.game'),
-      match: (p: string) => p.startsWith(`/${locale}/game`),
-    },
-  ];
+  const sections = SECTIONS.filter((x) => x.inNav);
 
   return (
     <header className="header">
@@ -45,16 +24,19 @@ export default function SiteNav({ children }: { children?: React.ReactNode }) {
       </div>
 
       <nav className="sections" aria-label={t('nav.sections')}>
-        {sections.map((s) => (
-          <Link
-            key={s.href}
-            href={s.href}
-            className={s.match(pathname) ? 'active' : ''}
-            aria-current={s.match(pathname) ? 'page' : undefined}
-          >
-            {s.label}
-          </Link>
-        ))}
+        {sections.map((s) => {
+          const active = isActive(pathname, locale, s);
+          return (
+            <Link
+              key={s.key}
+              href={sectionHref(locale, s)}
+              className={active ? 'active' : ''}
+              aria-current={active ? 'page' : undefined}
+            >
+              {t(`nav.${s.key}`)}
+            </Link>
+          );
+        })}
       </nav>
 
       <button className="logbook-btn" onClick={openPanel} aria-haspopup="dialog">
