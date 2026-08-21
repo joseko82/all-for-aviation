@@ -44,6 +44,21 @@ function VideoCard({ video }: { video: AirportVideo }) {
         )}
       </div>
       <div className="video-meta">
+        {/* Whether a channel allows third-party embedding cannot be detected
+            up front, so the escape hatch is surfaced the moment someone
+            presses play rather than buried in the credit line. */}
+        {playing && (
+          <p className="video-fallback">
+            {t('notPlaying')}{' '}
+            <a
+              href={`https://www.youtube.com/watch?v=${video.id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('openOnYouTube')}
+            </a>
+          </p>
+        )}
         <span className={`video-kind ${video.kind}`}>{t(`kind.${video.kind}`)}</span>
         <p className="video-title">{video.title}</p>
         <p className="video-channel">

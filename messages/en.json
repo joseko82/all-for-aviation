@@ -329,6 +329,7 @@
     },
     "privacyNote": "Pressing play is what loads the YouTube player, so until you do there is no player and no YouTube cookie on this page. The still picture on each card is fetched from YouTube's image server. If a video will not play here, use the \"open on YouTube\" link underneath it.",
     "creditNote": "All videos belong to the channels credited. This site only links to them.",
-    "backToMap": "Back to the live map"
+    "backToMap": "Back to the live map",
+    "notPlaying": "Not playing? Some channels block videos from playing on other sites —"
   }
 }
