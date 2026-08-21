@@ -25,6 +25,11 @@ export default function SiteNav({ children }: { children?: React.ReactNode }) {
       match: (p: string) => p.startsWith(`/${locale}/learn`),
     },
     {
+      href: `/${locale}/airports`,
+      label: t('nav.airports'),
+      match: (p: string) => p.startsWith(`/${locale}/airports`),
+    },
+    {
       href: `/${locale}/game`,
       label: t('nav.game'),
       match: (p: string) => p.startsWith(`/${locale}/game`),

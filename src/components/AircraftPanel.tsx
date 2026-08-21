@@ -5,6 +5,7 @@ import type { Aircraft, FlightRoute } from '@/lib/types';
 import { typeName } from '@/lib/aircraft';
 import { lookupAirline, flagEmoji } from '@/lib/airlines';
 import { pickCurrentLeg } from '@/lib/route';
+import { hasVideos } from '@/lib/airportVideos';
 import {
   compassPoint,
   formatAltitude,
@@ -128,6 +129,12 @@ export default function AircraftPanel({
                 )}
               </div>
             </>
+          )}
+
+          {hasVideos(to.icao) && (
+            <a className="watch-link" href={`/${locale}/airports`}>
+              {t('watchLandings', { iata: to.iata || to.icao })} →
+            </a>
           )}
 
           {leg && leg.total > 1 && (

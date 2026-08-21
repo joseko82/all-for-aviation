@@ -9,7 +9,8 @@
     "compare": "Size Compare",
     "learn": "Learn",
     "sections": "Sections",
-    "game": "Guess Game"
+    "game": "Guess Game",
+    "airports": "Airports"
   },
   "map": {
     "loading": "Looking for aeroplanes…",
@@ -51,7 +52,8 @@
     "fullRoute": "Full route: {route}",
     "addedToLogbook": "Added to your logbook",
     "seenBefore": "{count, plural, one {You've spotted this one # time} other {You've spotted this one # times}}",
-    "cargoFlight": "Cargo flight"
+    "cargoFlight": "Cargo flight",
+    "watchLandings": "Watch landings at {iata}"
   },
   "legend": {
     "title": "Altitude",
@@ -312,5 +314,21 @@
       "cadet": "Cadet — keep watching the sky."
     },
     "busLabel": "school bus — 11 m"
+  },
+  "airports": {
+    "title": "Watch a landing",
+    "lede": "Real cockpit and landing videos from the airports on the map. Pick an airport, then press play.",
+    "pick": "Pick an airport",
+    "nowShowing": "{city} — {iata} / {icao}",
+    "play": "Play: {title}",
+    "openOnYouTube": "open on YouTube",
+    "kind": {
+      "cockpit": "Cockpit view",
+      "landing": "From the ground",
+      "historic": "A famous old airport"
+    },
+    "privacyNote": "Pressing play is what loads the YouTube player, so until you do there is no player and no YouTube cookie on this page. The still picture on each card is fetched from YouTube's image server. If a video will not play here, use the \"open on YouTube\" link underneath it.",
+    "creditNote": "All videos belong to the channels credited. This site only links to them.",
+    "backToMap": "Back to the live map"
   }
 }

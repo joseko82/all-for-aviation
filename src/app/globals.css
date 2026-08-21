@@ -1061,3 +1061,100 @@ button { font-family: inherit; }
 }
 .game-breakdown li:last-child { border-block-end: none; }
 .game-breakdown li span:first-child { color: var(--text-dim); }
+
+/* ---------------------------------------------------------------------------
+   Airport landing videos (phase 5)
+   --------------------------------------------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.airport-picker {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-block-end: 18px;
+}
+.airport-picker .hub.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #04121d;
+}
+.airport-picker .hub.active .city { color: #06283a; }
+
+.airport-heading {
+  margin: 0 0 16px; font-size: 15px; font-weight: 650;
+}
+
+.video-grid {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;
+}
+
+.video-card {
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg-panel); overflow: hidden;
+}
+
+.video-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #05090f;
+}
+.video-frame iframe {
+  position: absolute; inset: 0;
+  inline-size: 100%; block-size: 100%; border: 0;
+}
+
+.video-facade {
+  position: absolute; inset: 0;
+  inline-size: 100%; block-size: 100%;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  display: grid; place-items: center;
+}
+.video-facade img {
+  position: absolute; inset: 0;
+  inline-size: 100%; block-size: 100%; object-fit: cover;
+  opacity: 0.78; transition: opacity 0.15s;
+}
+.video-facade:hover img { opacity: 1; }
+
+.video-play {
+  position: relative;
+  inline-size: 58px; block-size: 58px;
+  border-radius: 999px;
+  background: rgba(10, 15, 26, 0.82);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  color: #fff;
+  font-size: 20px;
+  display: grid; place-items: center;
+  padding-inline-start: 4px;
+}
+.video-facade:hover .video-play { background: var(--accent); color: #04121d; border-color: var(--accent); }
+
+.video-meta { padding: 12px 14px 14px; }
+.video-kind {
+  display: inline-block;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+  padding: 3px 7px; border-radius: 5px;
+  background: var(--bg-panel-2); color: var(--text-dim);
+}
+.video-kind.cockpit { color: var(--accent); }
+.video-kind.historic { color: var(--accent-warm); }
+.video-title { margin: 8px 0 4px; font-size: 14px; line-height: 1.45; font-weight: 600; }
+.video-channel { margin: 0; font-size: 12px; color: var(--text-dim); }
+.video-channel a { color: var(--accent); }
+
+.watch-link {
+  display: inline-block;
+  margin-block-start: 10px;
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+}
+.watch-link:hover { text-decoration: underline; }
